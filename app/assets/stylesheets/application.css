@@ -1,0 +1,37 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+
+p#links
+{
+	font-size: 14px;
+}
+
+p#links:hover
+{
+	background-color: #CCCCCC;
+	border-radius: 6px;
+}
+
+
+a#feedback {
+    top: 30%;
+    right: 0px;
+    width: 42px;
+    height: 102px;
+    position: fixed;
+    z-index: 100;
+    background-image: url("feedback_right.png");
+    background-color:#CCCCCC
+}
