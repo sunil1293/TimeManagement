@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-TimeSheetEffone::Application.config.secret_key_base = 'fa4241203e3efcdf006820d86adef4c8223946c2d2b2a3c1808d8babc8c39fbcd65e6ac09022654140d939e9512cc1d38f5d174a68a6da3055581fe8607e043e'
+TimeSheet::Application.config.secret_key_base = 'fa4241203e3efcdf006820d86adef4c8223946c2d2b2a3c1808d8babc8c39fbcd65e6ac09022654140d939e9512cc1d38f5d174a68a6da3055581fe8607e043e'

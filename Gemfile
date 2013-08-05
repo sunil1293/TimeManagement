@@ -1,10 +1,15 @@
 source 'https://rubygems.org'
 
 
+gem 'cancan'
 gem 'devise'
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+
+group :development, :test do
+	gem 'rspec-rails'
+end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

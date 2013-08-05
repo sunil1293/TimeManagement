@@ -80,7 +80,7 @@
             <div class="container-fluid nav-collapse">
               <ul class="nav">
                 <p id="links" class="brand"><%= link_to "HOME", "/home/index"  %></p>
-                <p id="links" class="brand"><%= link_to "New User", ""  %></p>
+                <p id="links" class="brand"><%= link_to "New User", "/users/new"  %></p>
                 <p id="links" class="brand"><%= link_to "All Users", "/users"  %></p>
                 <p id="links" class="brand"><%= link_to "Edit My Account", "/users/edit"  %></p>
               </ul> 
@@ -100,8 +100,8 @@
             <li><%= link_to "Time Off", ""  %></li>
             <li><%= link_to "My Account", ""  %></li>
             <li><%= link_to "About US", ""  %></li>
-            <li><%= link_to "New Feedback", ""  %></li>
-            <li><%= link_to "All Feedbacks", ""  %></li>
+            <li><%= link_to "New Feedback", "/feedbacks/new"  %></li>
+            <li><%= link_to "All Feedbacks", "/feedbacks"  %></li>
           </ul>
 
         </div><!--/.well -->
@@ -115,7 +115,7 @@
             <%= yield %>
           </div>
         </div><!--/row-->
-        <a id="feedback" href=""></a>
+        <a id="feedback" href="feedbacks/new"></a>
 
         <footer>
           <center><p>Time Sheet Application. &copy; Company 2013</p></center>

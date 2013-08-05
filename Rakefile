@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-TimeSheetEffone::Application.load_tasks
+TimeSheet::Application.load_tasks

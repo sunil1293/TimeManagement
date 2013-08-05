@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130802055809) do
+ActiveRecord::Schema.define(version: 20130805093251) do
 
   create_table "feedbacks", force: true do |t|
-    t.string   "Name"
+    t.string   "name"
     t.text     "feedback"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20130802055809) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

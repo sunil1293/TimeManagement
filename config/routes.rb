@@ -1,12 +1,15 @@
-TimeSheetEffone::Application.routes.draw do
+TimeSheet::Application.routes.draw do
+
+  resources :feedbacks
 
   get "devise/registrations/test"
   get "home/index"
 
-  resources "user"
-
   devise_for :users
-   root :to => "home#index"
+
+  resources "users"
+
+  root :to => "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
