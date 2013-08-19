@@ -1,0 +1,29 @@
+<h1>Listing tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Expected end date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.task %></td>
+        <td><%= task.expected_end_date %></td>
+        <td><%= link_to 'Show', user_task_path(@user, @task) %></td>
+        <td><%= link_to 'Edit', edit_user_task_path(@user, @task) %></td>
+        <td><%= link_to 'Destroy', {:controller => :tasks, :action => :destroy, :id => :task}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task', new_user_task_path %>

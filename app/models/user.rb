@@ -5,5 +5,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  ROLES = ['Admin', 'Manager', 'TechLead', 'Developer', 'Trainee']
 
+  has_many :tasks
+  has_many :descriptions
 end

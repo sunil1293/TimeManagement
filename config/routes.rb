@@ -1,13 +1,16 @@
 TimeSheet::Application.routes.draw do
 
+
   resources :feedbacks
 
-  get "devise/registrations/test"
   get "home/index"
 
   devise_for :users
 
-  resources "users"
+  resources :users, :controller => "users" do 
+    resources :tasks
+    resources :descriptions
+  end
 
   root :to => "home#index"
   # The priority is based upon order of creation: first created -> highest priority.

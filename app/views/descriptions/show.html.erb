@@ -1,0 +1,23 @@
+<p>
+  <strong>User:</strong>
+  <%= @description.user.email.split('@')[0] %>
+</p>
+
+<p>
+	<strong>Date:</strong>
+	<% date = @description.created_at.localtime %>
+	<%= date.strftime("%d-%m-%Y") %>
+</p>
+
+<p>
+	<strong>Time:</strong>
+	<%= date.to_s(:short).split(" ")[2] %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @description.status %>
+</p>
+
+<%= link_to 'Edit', edit_user_description_path(@user, @description) %> |
+<%= link_to 'Back', user_descriptions_path %>

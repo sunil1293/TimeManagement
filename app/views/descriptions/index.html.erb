@@ -1,0 +1,29 @@
+<h1>Listing descriptions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>&emsp;User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @descriptions.each do |description| %>
+      <tr>
+        <td><%= description.status %></td>
+        <td>&emsp;<%= description.user.email.split('@')[0] %></td>
+        <td>&emsp;<%= link_to 'Show', user_description_path(@user, description) %></td>
+        <td>&emsp;<%= link_to 'Edit', edit_user_description_path(@user, description) %></td>
+        <td>&emsp;<%= link_to 'Destroy', {:controller=>:descriptions,:action=>:destroy, :id=>description}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Description', new_user_description_path %>

@@ -35,6 +35,8 @@
       <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
       <%= javascript_include_tag "application" %>
+
+
     </head>
     <body>
 
@@ -68,7 +70,7 @@
                   </ul>
                 </li>
               </div>
-               
+
               <% else %>
 
               <%= link_to('Login', new_user_session_path)  %>  
@@ -96,7 +98,7 @@
 
           <ul class="nav nav-list">
             <li><%= link_to "HOME", "/home/index"  %></li>
-            <li><%= link_to "Time Sheet", ""  %></li>
+            <li><%= link_to "Time Sheet", "" %></li>
             <li><%= link_to "Time Off", ""  %></li>
             <li><%= link_to "My Account", ""  %></li>
             <li><%= link_to "About US", ""  %></li>
@@ -115,7 +117,7 @@
             <%= yield %>
           </div>
         </div><!--/row-->
-        <a id="feedback" href="feedbacks/new"></a>
+        <a id="feedback" href="/feedbacks/new"></a>
 
         <footer>
           <center><p>Time Sheet Application. &copy; Company 2013</p></center>
@@ -124,6 +126,8 @@
       </div> <!-- /container -->
 
     <!-- Javascripts
+      <script type="text/javascript">(function(){var ticker=document.createElement('script');ticker.type='text/javascript';ticker.async=true;ticker.src='//twitcker.com/ticker/sunnysunilkumar.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(ticker);})();
+      </script>
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     

@@ -5,19 +5,19 @@ class Ability
 
 
       if user.role? :Admin
-          can :manage, all
+           can :manage, :all
       end
       if user.role? :Manager
-          can :manage, all
+          can :manage, :all
       end
       if user.role? :TeacLead
-          can :manage, Forum
+          can :manage, :Forum
       end
       if user.role? :Developer
-          can :manage, Post
+          can :manage, :Post
       end
       if user.role? :Trainee
-          can :manage, ForumThread
+          can :manage, :ForumThread
       end
 
     # Define abilities for the passed in user here. For example:

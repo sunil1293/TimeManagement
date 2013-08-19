@@ -27,19 +27,17 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  def create
-    @user = User.new(user_params)
 
-    respond_to do |format|
+
+  def create
+      @user = User.new(user_params)
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
+        flash[:notice] = "Successfully created User."
+        redirect_to @user
       else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+       render :action => 'new'
       end
     end
-  end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json

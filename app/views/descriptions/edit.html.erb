@@ -1,0 +1,29 @@
+<h1>Editing description</h1>
+
+<%= form_for(:description, :url => { :action => :update }, :html => {:method => :put}) do |f| %>
+  <% if @description.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@description.errors.count, "error") %> prohibited this description from being saved:</h2>
+
+      <ul>
+      <% @description.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_area :status %>
+  </div>
+  <div class="field">
+    <%= hidden_field_tag :user_id, current_user.id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Show', user_description_path(@user, @description) %> |
+<%= link_to 'Back', user_descriptions_path %>
