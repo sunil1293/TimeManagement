@@ -1,0 +1,16 @@
+
+<!--This is _states.html.erb stage 1 - without the jQuery code-->
+
+<%= form_for(:user, :url => {:action => :create}, :html => {:method => :post}) do |f| %>
+
+    <% if !@porjects.blank? %>
+  	<div>
+  		<%= f.label :under_project %> <br/>
+ 		<%= f.select :under_project, Project.all.map {|p| [p.project_name, p.id]}, :include_blank => 'Please Select'%>
+ 	</div>
+    <% else %>
+      <%= f.label :under_project %> <br/>
+      <%= f.select :under_project, :collection=>[] %>
+    <% end %>
+
+<% end %>

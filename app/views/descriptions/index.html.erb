@@ -1,9 +1,10 @@
-<h1>Listing descriptions</h1>
+<h3>User status reports: </h3>
 
 <table>
   <thead>
     <tr>
-      <th>Status</th>
+      <th>Status On</th>
+      <th>&emsp;Status</th>
       <th>&emsp;User</th>
       <th></th>
       <th></th>
@@ -14,11 +15,13 @@
   <tbody>
     <% @descriptions.each do |description| %>
       <tr>
-        <td><%= description.status %></td>
+        <% date = description.created_at.localtime %>
+        <td><%= date.strftime("%d-%m-%Y") %></td>
+        <td>&emsp;<%= description.status %></td>
         <td>&emsp;<%= description.user.email.split('@')[0] %></td>
-        <td>&emsp;<%= link_to 'Show', user_description_path(@user, description) %></td>
-        <td>&emsp;<%= link_to 'Edit', edit_user_description_path(@user, description) %></td>
-        <td>&emsp;<%= link_to 'Destroy', {:controller=>:descriptions,:action=>:destroy, :id=>description}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>&emsp;<%= link_to 'Show', user_description_path(@user, description), :class => "btn btn-mini btn-info" %></td>
+        <td>&emsp;<%= link_to 'Edit', edit_user_description_path(@user, description), :class => "btn btn-mini" %></td>
+        <td>&emsp;<%= link_to 'Destroy', {:controller=>:descriptions,:action=>:destroy, :id=>description}, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Description', new_user_description_path %>
+<%= link_to 'New Status', new_user_description_path, :class => "btn btn-primary" %>

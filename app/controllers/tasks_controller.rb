@@ -4,33 +4,38 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    set_user
     @tasks = Task.all
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    set_user
+    set_task
   end
 
   # GET /tasks/new
   def new
-    @user = User.find(params[:user_id])
+    set_user
     @task = Task.new
   end
 
   # GET /tasks/1/edit
   def edit
+    set_user
+    set_task
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    @user = User.find(params[:user_id])
+    set_user
     @task = Task.new(task_params)
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to user_task_path, notice: 'Task was successfully created.' }
+        format.html { redirect_to user_task_path(@user, @task), notice: 'Task was successfully created.' }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
@@ -44,7 +49,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to user_task_path, notice: 'Task was successfully updated.' }
+        format.html { redirect_to user_task_path(@user, @task), notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -58,12 +63,17 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to user_tasks_url }
       format.json { head :no_content }
     end
   end
 
   private
+
+    def set_user
+      @user = User.find(params[:user_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
@@ -71,6 +81,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:task, :expected_end_date, :user_id)
+      params.require(:task).permit(:task, :expected_end_date, :user_id, :assigned_to, :under_project)
     end
 end

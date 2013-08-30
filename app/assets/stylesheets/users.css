@@ -1,0 +1,13 @@
+
+
+
+i#head{
+
+    background-image: url("icons.png");
+    background-position: -586px -55px;
+    vertical-align: middle;
+    width: 28px;
+    height: 26px;
+    z-index: 100;
+    background-color: white;
+}

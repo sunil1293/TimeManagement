@@ -1,0 +1,20 @@
+<h3>Project Details:</h3>
+<p>
+  <strong>Project Name:</strong>
+  <%= @project.project_name %>
+</p>
+
+
+<h3>Users Under This Project</h3>
+
+<% @users = User.all %>
+<% @users.each do |user| %>
+  <% if user.role == "Admin" %>
+  <%= user.email %>&emsp;&emsp;
+  <%= user.role %><br/>
+  <% end -%>
+  <% if user.under_project == @project.id %>
+  <%= user.email %>&emsp;&emsp;
+  <%= user.role %><br/>
+  <% end -%>
+<% end %>

@@ -1,4 +1,6 @@
 TimeSheet::Application.configure do
+
+  Paperclip.options[:command_path] = "/usr/bin/"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -11,6 +13,7 @@ TimeSheet::Application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
+
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.

@@ -1,10 +1,12 @@
-<h1>Listing tasks</h1>
+<h3>All Tasks Assigned by Me</h3>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Task</th>
-      <th>Expected end date</th>
+      <th>Project</th>
+      <th>&emsp;Task For</th>
+      <th>&emsp;Task</th>
+      <th>&emsp;Expected End Date</th>
       <th></th>
       <th></th>
       <th></th>
@@ -13,17 +15,46 @@
 
   <tbody>
     <% @tasks.each do |task| %>
+    <% if task.user_id == current_user.id %>
       <tr>
-        <td><%= task.task %></td>
-        <td><%= task.expected_end_date %></td>
-        <td><%= link_to 'Show', user_task_path(@user, @task) %></td>
-        <td><%= link_to 'Edit', edit_user_task_path(@user, @task) %></td>
-        <td><%= link_to 'Destroy', {:controller => :tasks, :action => :destroy, :id => :task}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= Project.find(task.under_project).project_name%></td>
+        <td>&emsp;<%= User.find(task.assigned_to).first_name%></td>
+        <td>&emsp;<%= task.task %></td>
+        <td>&emsp;<%= task.expected_end_date %></td>
+        <td>&emsp;<%= link_to 'Show', user_task_path(@user, task),:class => 'btn btn-mini btn-info' %></td>
+        <td>&emsp;<%= link_to 'Edit', edit_user_task_path(@user, task), :class => 'btn btn-mini' %></td>
+        <td>&emsp;<%= link_to 'Destroy', {:controller => :tasks, :action => :destroy, :id => task}, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
 
+<h3>Tasks Assigned To Me</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>&emsp;Task Assigned By</th>
+      <th>&emsp;Task</th>
+      <th>&emsp;Expected end date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+    <% if task.assigned_to == current_user.id %>
+      <tr>
+        <td><%= Project.find(task.under_project).project_name %></td>
+        <td>&emsp;<%= User.find(task.user_id).first_name %></td>
+        <td>&emsp;<%= task.task %></td>
+        <td>&emsp;<%= task.expected_end_date %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
 <br>
 
-<%= link_to 'New Task', new_user_task_path %>
+<%= link_to 'New Task', new_user_task_path,:class => 'btn btn-primary' %>

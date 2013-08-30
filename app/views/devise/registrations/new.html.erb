@@ -17,6 +17,10 @@
   <%= f.select :role, User::ROLES, :selected => 'Manager' %>
   </div>
 
+  <div>
+  <%= f.label :reported_to %><br/>
+  <%= f.select :reported_to, User.all.map {|p| [p.email, p.id]}, :include_blank => 'Please Select' %>
+  </div>
 
   <div><%= f.submit "Sign up" %></div>
 <% end %>

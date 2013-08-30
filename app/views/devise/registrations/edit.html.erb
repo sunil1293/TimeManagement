@@ -11,6 +11,11 @@
   <%= f.select :role, User::ROLES, :autofocus => true %>
   </div>
 
+  <div>
+  <%= f.label :reported_to %><br/>
+  <%= f.select :reported_to, User.all.map {|p| [p.email, p.id]}, :autofocus => true %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

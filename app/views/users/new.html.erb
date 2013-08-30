@@ -1,7 +1,8 @@
-<h2>Sign up</h2>
+<div class="well">
 
+<h3 style="margin-left: 60px;">create new user</h3>
 
-<%= form_for(@user) do |f| %>
+<%= form_for(:user, :url => {:action => :create}, :html => {:method => :post}) do |f| %>
  
    <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -14,26 +15,34 @@
       </ul>
     </div>
   <% end %>
-  <div><%= f.label :first_name %><br />
-  <%= f.text_field :first_name %></div>
+  <center>
 
-  <div><%= f.label :last_name %><br />
-  <%= f.text_field :last_name %></div>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
 
   <div>
-  <%= f.label :role %><br/>
+  <%= f.text_field :first_name, :placeholder => "first name", :id => "input_medium" %>
+
+ 
+  <%= f.text_field :last_name, :placeholder => "last name", :id => "input_medium" %></div>
+
+  <div>
+  <%= f.email_field :email, :placeholder => "email", :id => "input_large" %></div>
+
+  <div>
+  <%= f.password_field :password, :placeholder => "password", :id => "input_large" %></div>
+
+  <div>
+  <%= f.password_field :password_confirmation, :placeholder => "password conformation", :id => "input_large" %></div>
+
+  <div style="float: left; margin-left: 60px;">
+  <%= f.label :role, :style => "font-size: 16px; margin-left: -185px;" %>
   <%= f.select :role, User::ROLES, :selected => 'Manager' %>
   </div>
+  <div style="float: left;">
+  <%= f.label :reported_to, :style => "margin-left: -140px; font-size: 16px;" %>
+  <%= f.select :reported_to, User.all.map {|u| [u.email, u.id]}, :include_blank => 'Please Select' %>
+  </div>
 
-
-  <div><%= f.submit "Sign up" %></div>
+  <div ><%= f.submit "sign up user", :class => "btn btn-info btn-large" %></div>
 <% end %>
+</center>
+</div>

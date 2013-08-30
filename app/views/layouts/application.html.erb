@@ -34,11 +34,28 @@
       <!-- Size should be 32 x 32 pixels -->
       <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
-      <%= javascript_include_tag "application" %>
+
+      <%= javascript_include_tag "fancybox" %>
+
+      <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "rails.jquery.js", "application.js" %>
+
+<script language="javascript">
+    function changeImage() {
+
+        if (document.getElementById("imgClickAndChange").src == "/images/menu1.png") 
+        {
+            document.getElementById("imgClickAndChange").src.replace("/images/menu.png");
+        }
+        else 
+        {
+            document.getElementById("imgClickAndChange").src.replace("/images/menu1.png");
+        }
+    }
+</script>
 
 
     </head>
-    <body>
+    <body id="body_background">
 
       <div class="navbar navbar-fluid-top">
         <div class="navbar-inner">
@@ -55,14 +72,15 @@
               <% if user_signed_in? %>
 
               <%= current_user.email%>&emsp;
+              Logged in as: <%= current_user.role %>&emsp;
               <div class="nav pull-right">
                 <li id="fat-menu" class="dropdown">
 
-                  <p class="dropdown-toggle" data-toggle="dropdown"><%= link_to "My Account", ''%><b class="caret"></b></p>
+                  <p class="dropdown-toggle" data-toggle="dropdown"><%= link_to "My Account" %><b class="caret"></b></p>
 
                   <ul class="dropdown-menu">
                     <li><%= link_to "Profile", '' %></li>
-                    <li><%= link_to "Settings", '/users/edit' %></li>
+                    <li><%= link_to "Settings", edit_user_path(current_user) %></li>
                     <li class="divider"></li>
                     <li>
                       <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
@@ -73,18 +91,18 @@
 
               <% else %>
 
-              <%= link_to('Login', new_user_session_path)  %>  
-              
+              <%= link_to 'Login', new_user_session_path, :'data-toggle' => 'modal', :'data-target' => '#test_modal' %>
+               
               <% end %>
 
             </div>
             <% if user_signed_in? %>
             <div class="container-fluid nav-collapse">
               <ul class="nav">
-                <p id="links" class="brand"><%= link_to "HOME", "/home/index"  %></p>
-                <p id="links" class="brand"><%= link_to "New User", "/users/new"  %></p>
-                <p id="links" class="brand"><%= link_to "All Users", "/users"  %></p>
-                <p id="links" class="brand"><%= link_to "Edit My Account", "/users/edit"  %></p>
+                <p id="links" class="brand"><%= link_to "HOME", "/home/index", :style => "text-decoration:none" %></p>
+                <p id="links" class="brand"><%= link_to "New User", new_user_registration_path, :style => "text-decoration:none" %></p>
+                <p id="links" class="brand"><%= link_to "All Users", "/users" , :style => "text-decoration:none" %></p>
+                <p id="links" class="brand"><%= link_to "Edit My Account", edit_user_path(current_user), :style => "text-decoration:none" %></p>
               </ul> 
             </div><!--/.nav-collapse -->
             <% end %>
@@ -92,27 +110,211 @@
         </div>
       </div>
 
-      <div class="span3">
-        <% if user_signed_in? %>
-        <div class="well sidebar-nav">
 
-          <ul class="nav nav-list">
-            <li><%= link_to "HOME", "/home/index"  %></li>
-            <li><%= link_to "Time Sheet", "" %></li>
-            <li><%= link_to "Time Off", ""  %></li>
-            <li><%= link_to "My Account", ""  %></li>
-            <li><%= link_to "About US", ""  %></li>
-            <li><%= link_to "New Feedback", "/feedbacks/new"  %></li>
-            <li><%= link_to "All Feedbacks", "/feedbacks"  %></li>
-          </ul>
 
-        </div><!--/.well -->
-        <% end %> 
-      </div><!--/span-->
 
+      <div class="navbar" id="navbar">
+        <div class="header_right">
+            <a href="#" >
+               <%= image_tag("timesheet2.png")%>
+            </a>
+            <% if user_signed_in? %>
+            <ul class="nav ace-nav pull-right">
+              <li>
+                <a id="first-gray" data-toggle="dropdown" class="dropdown-toggle first-gray"  >
+                  <i class="icon-tasks"></i>
+                  <span class="badge badge-grey">1</span>
+                </a>
+              </li>
+
+              
+              <li class="dropdown">
+              <a id="first-purple" class="dropdown-toggle" href="#" data-toggle="dropdown">
+                  <i class="icon-bell-alt icon-animated-bell"></i>
+                  <span class="badge badge-important">5</span>
+              </a>
+              <ul id="dropdown-menu" class="dropdown-menu">
+              <li>New Notification1</li>
+              <li>New Notification2</li>
+              <li class="divider"></li>
+              <li>New Notification3</li>
+              <li>New Notification4</li>
+              <li>New Notification5</li>
+              </ul>
+              </li>
+            
+              <li class="dropdown">
+              <a id="first-green" class="dropdown-toggle" href="#" data-toggle="dropdown">
+                  <i class="icon-envelope icon-animated-vertical"></i>
+                  <span class="badge badge-success">3</span>
+              </a>
+              <ul id="dropdown-menu" class="dropdown-menu">
+              <li>New Note1</li>
+              <li>New Note2</li>
+              <li class="divider"></li>
+              <li>New Note3</li>
+              <li>New Note4</li>
+              <li>New Note5</li>
+              </ul>
+              </li>
+
+
+              <li class="dropdown-toggle" data-toggle="dropdown" style="backgroung-color: blue; cursor: pointer">
+              <%= image_tag(current_user.profile_photo, :style =>"height: 40px; width: 42px;", :class => "img-circle")%>
+            Welcome, <%= current_user.first_name %>  <i class="icon-angle-down"></i></li>
+            <ul id="dropdown-menu" class="dropdown-menu">
+                    <li><%= link_to "Profile", '' %></li>
+                    <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                    <li class="divider"></li>
+                    <li>
+                      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+                    </li>
+            </ul>
+            <li><a href=""></a></li>
+         </ul>
+         <% end %>
+        </div>
+      </div>
+
+
+<div style="margin-left: 0px; margin-top: -20px;" class="span3">
+  <div class="navbar">
+  <% if user_signed_in? %>
+     <a data-toggle="collapse" data-target="#slide">
+        <img src="/images/menu1.png" id="imgClickAndChange" onclick="changeImage()"  />
+     </a>
+     <img style="display: none" src="/images/menu.png"/>
+
+
+<div id="slide" class="collapse in sidebar display">
+<div class="sidebar-shortcuts">
+<div class="sidebar-shortcuts-large">
+<button class="btn btn-small btn-success">
+<i class="icon-signal"></i>
+</button>
+<button class="btn btn-small btn-info">
+<i class="icon-pencil"></i>
+</button>
+&ensp;<button class="btn btn-small btn-warning">
+<i class="icon-group"></i>
+</button>
+<button class="btn btn-small btn-danger">
+<i class="icon-cogs"></i>
+</button>
+</div>
+</div>
+
+ <ul class="nav nav-list">
+
+             <li class="active">
+               <a href="/home/index" class="span3" >
+                 <i class="icon-home"></i>
+                 <span class="menu-text">Home</span>
+               </a>
+             </li>
+
+             <li class="active">
+               <a href="#" class="span3">
+                 <i class="icon-dashboard"></i>
+                 <span class="menu-text">About Us</span>
+               </a>
+             </li>
+             <li class="active">
+               <a class="span3" data-toggle="collapse" data-target="#times">
+                <i class="icon-time"></i>
+                <span>TimeSheet</span>
+                <b class="arrow icon-angle-down"></b>
+              </a>
+              <div id="times" class="collapse">
+              <ul class="nav nav-list">
+              <li style="border-left: -50px;" class="active menu-text span3"><%= link_to "Update Timesheet", new_user_description_path(current_user), :class=> "icon-plus"%>
+              </li>
+           <li class="active">
+             <a href="/feedbacks" class="span3">
+               <i class="icon-picture"></i>
+               <span class="menu-text">Daily Status</span>
+             </a>
+           </li>
+           </ul>
+          </div>
+           </li>
+           <li class="active dropdown" >
+             <a class="dropdown-toggle span3" data-toggle="dropdown" href="#">
+               <i class="icon-plus"></i>
+               <span>Time Off</span>
+               <b class="arrow icon-angle-down"></b>
+             </a>
+             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+               <li>
+                 <a href="">
+                   <i class="icon-double-angle-right"></i>
+                   Simple & Dynamic
+                 </a>
+               </li>
+               <li>
+                 <a href="#">
+                   <i class="icon-double-angle-right"></i>
+                   jqGrid plugin
+                 </a>
+
+               </ul>
+             </li>
+             
+            <li class="active">
+             <a href="" class="span3">
+               <i class="icon-list-alt"></i>
+               <span class="menu-text">My Profile</span>
+             </a>
+           </li>
+           <li class="active">
+               <a class="span3" data-toggle="collapse" data-target="#feedbacks">
+                <i class="icon-book"></i>
+                <span >Feedback</span>
+                <b class="arrow icon-angle-down"></b>
+              </a>
+              <div id="feedbacks" class="collapse">
+              <ul class="nav nav-list">
+              <li class="active">
+                <a href="/feedbacks/new" class="span3">
+                  <i class="icon-calendar"></i>
+                  <span class="menu-text">New Feedback</span>
+                </a>
+              </li>
+           <li class="active">
+             <a href="/feedbacks" class="span3">
+               <i class="icon-picture"></i>
+               <span class="menu-text">List all Feedbacks</span>
+             </a>
+           </li>
+           </ul>
+          </div>
+           </li>
+           
+           <li class="active">
+             <a href="" class="span3">
+               <i class="icon-tag"></i>
+               <span class="menu-text">More Pages</span>
+             </a>
+           </li>
+           <li class="active">
+             <a href="" class="span3">
+               <i class="icon-file-alt"></i>
+               <span class="menu-text">Other Pages</span>
+             </a>
+           </li>
+
+         </ul>
+</div>
+<% end %>
+</div>
+</div>
+      <% if !user_signed_in? %>
+      <div style="margin-left: 200px;" class="container">
+      <% else %>
       <div class="container">
+      <% end %>
         <div class="row">
-          <div class="span9">
+          <div class="span10">
             <%= bootstrap_flash %>
             <%= yield %>
           </div>
@@ -128,9 +330,9 @@
     <!-- Javascripts
       <script type="text/javascript">(function(){var ticker=document.createElement('script');ticker.type='text/javascript';ticker.async=true;ticker.src='//twitcker.com/ticker/sunnysunilkumar.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(ticker);})();
       </script>
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
 
-  </body>
-  </html>
+
+    </body>
+    </html>

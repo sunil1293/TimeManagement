@@ -15,11 +15,13 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
 
+ 
+
   protected
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) do |u|
-        u.permit :email, :password, :password_confirmation, :admin
+        u.permit :email, :password, :password_confirmation
       end
     end
 

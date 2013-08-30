@@ -1,0 +1,27 @@
+<h1>Listing projects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>project Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.project_name %></td>
+        <td>&emsp;<%= link_to 'Show', project, :class => 'btn btn-mini btn-info' %></td>
+        <td>&emsp;<%= link_to 'Edit', edit_project_path(project), :class => 'btn btn-mini' %></td>
+        <td>&emsp;<%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New project', new_project_path, :class => 'btn btn-primary' %>

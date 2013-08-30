@@ -4,30 +4,32 @@ class DescriptionsController < ApplicationController
   # GET /descriptions
   # GET /descriptions.json
   def index
-    @user = User.find(params[:user_id])
+    set_user
     @descriptions = Description.all
   end
 
   # GET /descriptions/1
   # GET /descriptions/1.json
   def show
+    set_user
   end
 
   # GET /descriptions/new
   def new
-    @user = User.find(params[:user_id])
+    set_user
     @description = Description.new
   end
 
   # GET /descriptions/1/edit
   def edit
+    set_user
   end
 
   # POST /descriptions
   # POST /descriptions.json
   def create
     
-    @user = User.find(params[:user_id])
+    set_user
     @description = Description.new(description_params)
 
     respond_to do |format|
@@ -44,6 +46,7 @@ class DescriptionsController < ApplicationController
   # PATCH/PUT /descriptions/1
   # PATCH/PUT /descriptions/1.json
   def update
+    set_user
     respond_to do |format|
       if @description.update(description_params)
         format.html { redirect_to user_description_path(@user, @description), notice: 'Description was successfully updated.' }
@@ -66,6 +69,10 @@ class DescriptionsController < ApplicationController
   end
 
   private
+
+    def set_user
+      @user = User.find(params[:user_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_description
       @description = Description.find(params[:id])
