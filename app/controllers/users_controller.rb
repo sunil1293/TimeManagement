@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  load_and_authorize_resource
+
   layout 'user_layout', only: [:show]
 
 
@@ -70,6 +72,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def users_by_role
+    users = User.users_by_role(params[:role])
+     respond_to do |format|
+        format.json { render json: users.pluck(:id,:first_name) }
+     end
+  end    
+  
+  
   private
 
 

@@ -1,6 +1,7 @@
-<div class="well">
+<div class="well span8">
 
-<h3 style="margin-left: 60px;">create new user</h3>
+<h3 style="margin-left: 70px;">create new user</h3>
+<hr/>
 
 <%= form_for(:user, :url => {:action => :create}, :html => {:method => :post}) do |f| %>
  
@@ -19,7 +20,7 @@
 
 
   <div>
-  <%= f.text_field :first_name, :placeholder => "first name", :id => "input_medium" %>
+  <%= f.text_field :first_name, :placeholder => "first name", :style => "margin-left: 70px;", :id => "input_medium" %>
 
  
   <%= f.text_field :last_name, :placeholder => "last name", :id => "input_medium" %></div>
@@ -33,16 +34,37 @@
   <div>
   <%= f.password_field :password_confirmation, :placeholder => "password conformation", :id => "input_large" %></div>
 
-  <div style="float: left; margin-left: 60px;">
+  <div style="float: left; margin-left: 70px;">
   <%= f.label :role, :style => "font-size: 16px; margin-left: -185px;" %>
-  <%= f.select :role, User::ROLES, :selected => 'Manager' %>
+  <%= f.select :role, User::ROLES, :include_blank => 'please select' %>
   </div>
   <div style="float: left;">
   <%= f.label :reported_to, :style => "margin-left: -140px; font-size: 16px;" %>
-  <%= f.select :reported_to, User.all.map {|u| [u.email, u.id]}, :include_blank => 'Please Select' %>
+  <%= f.select :reported_to, '' %>
   </div>
 
   <div ><%= f.submit "sign up user", :class => "btn btn-info btn-large" %></div>
 <% end %>
 </center>
 </div>
+
+
+
+<script type="text/javascript">
+  $(function($) {
+  $("#user_role").change(function() {
+    $.ajax({
+      url: '<%= users_by_role_users_path %>' + '?role=' + this.value ,
+      type: 'GET',
+      success: function(data){
+        $('#user_reported_to').html('');
+        var options = $('#user_reported_to').append('<option value="">Please Select</option>')
+        $.each( data, function( key, value ) {
+          options.append("<option value="+value[0]+">"+value[1]+"</option>")
+         });
+      }
+    })
+
+  });
+})
+</script>

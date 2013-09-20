@@ -1,23 +1,12 @@
-<h3><i>New Project</i></h3>
+
+
+<div class = "hero-unit VISIBLE-DESKTOP">
+<center><h3><i>New Project</i></h3></center>
+<hr>
 
 <%= form_for(:project, :url => { :action => :create }, :html => {:method => :post}) do |f| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-      <ul>
-      <% @project.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :project_name %><br>
-    <%= f.text_field :project_name %>
-  </div>
-
+  
+<%= render :partial => "form", :locals => { :f => f } %>
 
   <div class="actions">
     <%= f.submit %>
@@ -25,3 +14,21 @@
 <% end %>
 
 <%= link_to 'Back', projects_path, :class => 'btn btn-mini' %>
+
+</div>
+
+
+<div class="win-commandlayout">
+      <a class="win-command" href="#">
+         <span class="win-commandicon win-commandring icon-home"></span>
+         <span class="win-label">Home</span>
+      </a>
+ 
+      <hr class="win-command" />
+      ...
+      <button class="win-command">
+         <span class="win-commandicon win-commandring icon-reload"></span>
+         <span class="win-label">Reload</span>
+      </button>
+      ...
+</div>

@@ -1,0 +1,50 @@
+<script type="text/javascript">
+  $(function() {
+    $( ".datepicker" ).datepicker({
+    format: 'yyyy-mm-dd'
+    });
+  });
+</script>
+
+<% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :project_name %><br>
+    <%= f.text_field :project_name %>
+  </div>
+  <div>
+    <%= f.label :project_status %><br>
+    <%= f.select :project_status, Project::STATUS %>
+  </div>
+  <div>
+    <%= f.label :project_discription %><br>
+    <%= f.text_area :project_discription %>
+  </div>
+  <div>
+    <%= f.label :client %><br>
+    <%= f.text_field :client %>
+  </div>
+  <div>
+    <%= f.label :client_details %><br>
+    <%= f.text_area :client_details %>
+  </div>
+
+  <div>
+    <%= f.label :start_date %><br>
+    <%= f.date_field :start_date %>
+  </div>
+
+  <div>
+    <%= f.label :end_date %><br>
+    <%= f.date_field :end_date %>
+  </div>

@@ -1,0 +1,10 @@
+<h1>Edit your Time Off</h1>
+
+<%= form_for(:task, :url => { :action => :update }, :html => {:method => :put}) do |f| %>
+
+<%= render :partial => "form", :locals => { :f => f } %>
+
+<% end %>
+
+<%= link_to 'Show', user_time_off_path(@user, @time_off) %> |
+<%= link_to 'Back', user_time_offs_path %>

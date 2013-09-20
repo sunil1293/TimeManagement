@@ -1,3 +1,10 @@
+
+<h3>Task Details</h3>
+<hr>
+<p>
+	<strong>Project:</strong>
+	<%= Project.find(@task.under_project).project_name %>
+</p>
 <p>
   <strong>Task:</strong>
   <%= @task.task %>

@@ -17,7 +17,7 @@
       <tr>
         <% date = description.created_at.localtime %>
         <td><%= date.strftime("%d-%m-%Y") %></td>
-        <td>&emsp;<%= description.status %></td>
+        <td>&emsp;<%= description.today_status %></td>
         <td>&emsp;<%= description.user.email.split('@')[0] %></td>
         <td>&emsp;<%= link_to 'Show', user_description_path(@user, description), :class => "btn btn-mini btn-info" %></td>
         <td>&emsp;<%= link_to 'Edit', edit_user_description_path(@user, description), :class => "btn btn-mini" %></td>

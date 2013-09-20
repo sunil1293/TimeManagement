@@ -11,13 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130826121827) do
+ActiveRecord::Schema.define(version: 20130920065552) do
 
   create_table "descriptions", force: true do |t|
-    t.text     "status"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "status_on"
+    t.text     "today_status"
+    t.integer  "number_of_hours"
+    t.integer  "select_project"
+    t.integer  "select_task"
   end
 
   add_index "descriptions", ["user_id"], name: "index_descriptions_on_user_id"
@@ -33,6 +37,12 @@ ActiveRecord::Schema.define(version: 20130826121827) do
     t.string   "project_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "project_status"
+    t.text     "project_discription"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "client"
+    t.text     "client_details"
   end
 
   create_table "tasks", force: true do |t|
@@ -43,6 +53,22 @@ ActiveRecord::Schema.define(version: 20130826121827) do
     t.integer  "user_id"
     t.integer  "assigned_to"
     t.integer  "under_project"
+    t.date     "start_date"
+    t.string   "status"
+  end
+
+  create_table "time_offs", force: true do |t|
+    t.string   "time_off"
+    t.string   "type"
+    t.date     "date"
+    t.integer  "number_of_hours"
+    t.date     "from"
+    t.date     "to"
+    t.text     "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "leave_type"
   end
 
   create_table "users", force: true do |t|

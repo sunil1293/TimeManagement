@@ -11,11 +11,17 @@ class User < ActiveRecord::Base
 
   validates_attachment_content_type :profile_photo, :content_type => ['image/jpeg' , 'image/png']
 
-  validates_presence_of :first_name, :reported_to
+  validates_presence_of :first_name
+
+  validates_confirmation_of :password
 
   ROLES = ['Admin', 'Manager', 'TechLead', 'Developer', 'Trainee']
+
+  scope :users_by_role, lambda { |role| where(role: role)  }
 
   has_many :tasks
   has_many :descriptions
   has_many :projects
+  has_many :time_offs
+
 end

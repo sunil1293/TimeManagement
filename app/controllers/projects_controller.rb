@@ -1,4 +1,9 @@
 class ProjectsController < ApplicationController
+
+  load_and_authorize_resource
+
+  #load_and_authorize_resource :through => :current_user
+
   def index
   	@projects = Project.all
   end
@@ -48,6 +53,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:project_name)
+      params.require(:project).permit(:project_name, :project_status, :project_discription, :start_date, :end_date, :client, :client_details )
     end
 end

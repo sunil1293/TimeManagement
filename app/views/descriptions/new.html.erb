@@ -1,25 +1,13 @@
 <h3>Today Status Report:</h3>
 
 <%= form_for(:description, :url => { :action => :create }, :html => {:method => :post}) do |f| %>
-  <% if @description.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@description.errors.count, "error") %> prohibited this description from being saved:</h2>
-
-      <ul>
-      <% @description.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  
+  <%= render :partial => "form", :locals => { :f => f } %>
 
   <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_area :status %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
   </div>
-  <div class="field">
-  	<%= f.hidden_field :user_id, :value => current_user.id %>
-  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -37,7 +37,11 @@
 
 	<tr>
 		<td><strong>Reported To:</strong></td>
+		<% if @user.reported_to == nil %>
+		<td>&emsp;Not Reported To anyone </td>
+		<% else %>
 		<td>&emsp;<%= User.find(@user.reported_to).first_name %><br/></td>
+		<% end %>
 	</tr>
 
 	<tr>
@@ -50,9 +54,10 @@
 	</tr>
 </table>
 
-
+<% if can? :crud, @user %>
 <%= link_to 'Edit', edit_user_path(@user), :class => 'btn btn-mini' %>|
-<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
 
+<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+<% end %>
 </div>
 </div>

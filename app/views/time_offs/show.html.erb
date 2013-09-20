@@ -1,0 +1,39 @@
+
+
+<p>
+  <strong>Time off:</strong>
+  <%= @time_off.leave_type %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @time_off.type %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @time_off.date %>
+</p>
+
+<p>
+  <strong>Number of hours:</strong>
+  <%= @time_off.number_of_hours %>
+</p>
+
+<p>
+  <strong>From:</strong>
+  <%= @time_off.from %>
+</p>
+
+<p>
+  <strong>To:</strong>
+  <%= @time_off.to %>
+</p>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @time_off.reason %>
+</p>
+
+<%= link_to 'Edit', edit_user_time_off_path(@user, @time_off) %> |
+<%= link_to 'Back', user_time_offs_path %>

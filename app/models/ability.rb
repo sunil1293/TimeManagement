@@ -3,22 +3,31 @@ class Ability
 
   def initialize(user)
 
+    alias_action :create, :update, :destroy, :to => :crud
 
-      if user.role? :Admin
-           can :manage, :all
+      if user.role == 'Admin'
+        can :manage, :all
       end
-      if user.role? :Manager
+
+      if user.role == 'Manager'
           can :manage, :all
+          cannot :crud, [User, Task]
       end
-      if user.role? :TeacLead
-          can :manage, :Forum
+
+      if user.role == 'TeacLead'
+          can :manage, Task
+          cannot :manage, Project
       end
-      if user.role? :Developer
-          can :manage, :Post
+
+      if user.role == 'Developer'
+          cannot :manage, [Project, Task]
       end
-      if user.role? :Trainee
-          can :manage, :ForumThread
+
+
+      if user.role == 'Trainee'
+          cannot :manage, [Project, Task]
       end
+
 
     # Define abilities for the passed in user here. For example:
     #

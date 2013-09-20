@@ -1,4 +1,7 @@
 class TasksController < ApplicationController
+
+  load_and_authorize_resource
+  
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
@@ -47,6 +50,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+    set_user
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to user_task_path(@user, @task), notice: 'Task was successfully updated.' }
@@ -61,12 +65,20 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
+    set_user
     @task.destroy
     respond_to do |format|
       format.html { redirect_to user_tasks_url }
       format.json { head :no_content }
     end
   end
+
+  def users_by_project
+    users = User.users_by_project(params[:under_project])
+     respond_to do |format|
+        format.json { render json: users.pluck(:id, :first_name) }
+     end
+  end    
 
   private
 
@@ -81,6 +93,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:task, :expected_end_date, :user_id, :assigned_to, :under_project)
+      params.require(:task).permit(:task, :expected_end_date, :user_id, :assigned_to, :under_project, :start_date, :status,)
     end
 end

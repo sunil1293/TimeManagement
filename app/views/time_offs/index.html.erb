@@ -1,0 +1,39 @@
+<h2>Leaves You have applied.</h2>
+
+<table class = "table table-condensed table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Leave Type</th>
+      <th>Type</th>
+      <th>Date</th>
+      <th>Number of hours</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Reason</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @time_offs.each do |time_off| %>
+      <tr>
+        <td><%= time_off.leave_type %></td>
+        <td><%= time_off.type %></td>
+        <td><%= time_off.date %></td>
+        <td><%= time_off.number_of_hours %></td>
+        <td><%= time_off.from %></td>
+        <td><%= time_off.to %></td>
+        <td><%= time_off.reason %></td>
+        <td><%= link_to 'Show', user_time_off_path(@user, time_off) %></td>
+        <td><%= link_to 'Edit', edit_user_time_off_path(@user, time_off) %></td>
+        <td><%= link_to 'Destroy', time_off, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Time off', new_user_time_off_path %>

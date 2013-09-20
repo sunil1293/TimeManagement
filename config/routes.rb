@@ -1,6 +1,8 @@
 TimeSheet::Application.routes.draw do
 
 
+
+
   get "about_us/index"
   resources :feedbacks
 
@@ -10,16 +12,21 @@ TimeSheet::Application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => 'users'}
 
-  resources :users
-
   #match 'users/update_projects/:id', :controller=>'users', :action => 'update_projects'
 
   get 'users/update_projects/:id', :controller=>'users', :action => 'update_projects'
 
   resources :users do
-
-    resources :tasks
+    resources :tasks do
+      collection do 
+         get 'users_by_project'
+      end
+    end
     resources :descriptions
+    resources :time_offs
+    collection do 
+      get 'users_by_role'
+    end
   end
 
   root :to => "home#index"

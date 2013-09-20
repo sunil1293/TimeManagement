@@ -14,6 +14,13 @@
  */
 
 
+#dropdown-menu
+{
+  z-index: 100000;
+  border-radius: 0px;
+}
+
+
 p#links
 {
 	font-size: 14px;
@@ -86,15 +93,15 @@ height:45px; width: 50px;
 
 #my_input
 {
-  height: 45px;
-  width: 220px;
+  height: 57px;
+  width: 240px;
   border-left: 0px;
   font-size: 17px;
 }
 
 #login_button
 {
-width: 53%; height: 52px; border:5px;
+width: 54%; height: 52px; border:5px;
 background: linear-gradient(to bottom, rgb(51, 171, 238) 0px, rgb(16, 138, 206) 100%) repeat scroll 0% 0% transparent;
 font-size: 17px;
 color: white;
@@ -109,20 +116,21 @@ color: white;
 {
 background-image: url("icons.png");
 background-position: -532px 0px;
-border-right: 0px;
+border: 0px;
 background-color: rgb(0, 109, 204);
 width: 45px;
-height: 44px;
-border-radius: 6px 0px 0px 6px;
+height: 45px;
+
 font-size: 17px;
 }
 
 #facebook_button
 {
   height: 53px;
-  width: 240px;
+  width: 246px;
   border-left: 0px;
-  border-radius: 0px 6px 6px 0px;
+  background-color: rgb(0, 109, 204);
+
   font-size: 17px;
 }
 
@@ -149,8 +157,7 @@ font-size: 17px;
 
 #image_div
 {
-  margin-top: -20px;
-  margin-bottom: 0px;
+  margin: -5px;
 }
 
 
@@ -160,11 +167,14 @@ font-size: 17px;
 }
 #input_medium
 {
+  float: left;
   height: 40px;
+  width: 220px;
 }
 #input_large
 {
-  height: 40px; width: 430px;
+  margin-left: -40px;
+  height: 40px; width: 440px;
 }
 
 
@@ -208,7 +218,8 @@ a#first-green:hover{
   background-color: green;
 }
 
-#dropdown-menu
+#image_modal
 {
-  border-radius: 0px;
+  height: 150px;
+  width: 100px;
 }

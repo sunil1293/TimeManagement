@@ -1,29 +1,46 @@
+<script type="text/javascript">
+  $(function() {
+    $( ".datepicker" ).datepicker({
+    format: 'yyyy-mm-dd'
+    });
+  });
+</script>
 
-<%= form_for(:task, :url => { :action => :create }, :html => {:method => :post}) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<% if @task.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
-      <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :task %><br>
-    <%= f.text_field :task %>
-  </div>
-  <div class="field">
-    <%= f.label :expected_end_date %><br>
-    <%= f.date_select :expected_end_date %>
-  </div>
-  <div>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <ul>
+    <% @task.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
 <% end %>
+
+<div class="field">
+  <%= f.label :task %><br>
+  <%= f.text_field :task %>
+</div>
+<div>
+  <%= f.label :status %> <br/>
+  <%= f.select :status, Task::STATUS %>
+</div>
+<div>
+  <%= f.label :under_project %> <br/>
+  <%= f.select :under_project, Project.all.map {|p| [p.project_name, p.id]} %>
+</div>
+<div>
+  <%= f.label :assigned_to %><br/>
+  <%= f.select :assigned_to, User.all.map {|u| [u.email, u.id]}, :include_blank => 'Please Select' %>
+</div>
+
+<div class = "input-append">
+  <%= f.label :start_date %><br>
+  <%= f.text_field :start_date, :class => 'datepicker', :readonly => true %><span class = "btn" ><i class = "icon-calendar" ></i></span>
+</div><br/>
+
+<div class = "input-append">
+  <%= f.label :expected_end_date %><br>
+  <%= f.text_field :expected_end_date, :class => 'datepicker', :readonly => true %><span class = "btn" ><i class = "icon-calendar" ></i></span>
+</div>
