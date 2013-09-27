@@ -1,19 +1,51 @@
 
-<h3>Task Details</h3>
-<hr>
-<p>
-	<strong>Project:</strong>
-	<%= Project.find(@task.under_project).project_name %>
-</p>
-<p>
-  <strong>Task:</strong>
-  <%= @task.task %>
-</p>
+<table class="table table-striped table-condensed table-hover">
+  <thead>
+    <tr>
+      <th><h3>Task Details :</h3><th>
+    </tr>
+  </thead>
 
-<p>
-  <strong>Expected end date:</strong>
-  <%= @task.expected_end_date %>
-</p>
+  <tbody>
+      <tr>
+        <td>Project :</td>
+        <td><%= Project.find(@task.under_project).project_name %></td>
+      </tr>
+      <tr>
+        <td>Project Task :</td>
+        <td><%= @task.task %></td>
+      </tr>
+      <tr>
+        <td>Task Description :</td>
+        <td id="overflow"><%= @task.description %></td>
+      </tr>
+      <tr>
+        <td>Task Status :</td>
+        <td><span class="label label-info"><%= @task.status %></span></td>
+      </tr>
+      <% if @task.assigned_to == current_user.id %>
+        <tr>
+          <td>Task Assigned by :</td>
+          <td><%= User.find(@task.user_id).first_name %></td>
+        </tr>
+      <% else %>
+      <tr>
+        <td>Task Assigned for :</td>
+        <td><%= User.find(@task.assigned_to).first_name %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <td>Task Start Date :</td>
+        <td><%= @task.start_date %></td>
+      </tr>      
+      <tr>
+        <td>Expected end date :</td>
+        <td><%= @task.expected_end_date %></td>
+      </tr>
+  </tbody>
+</table>
 
-<%= link_to 'Edit', edit_user_task_path(@user, @task) %> |
-<%= link_to 'Back', user_tasks_path %>
+<center>
+<%= link_to 'Edit', edit_user_task_path(@user, @task), :class => "btn btn-mini" %> |
+<%= link_to 'Back', user_tasks_path, :class => "btn btn-mini btn-info" %>
+</center>

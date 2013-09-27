@@ -17,12 +17,12 @@
 <table class="table table-striped table-condensed table-hover" >
 	<tr>
 		<td><strong>First Name:</strong></td>
-		<td>&emsp;<%= @user.first_name %><br/></td>
+		<td>&emsp;<%= @user.first_name.capitalize %><br/></td>
 	</tr>
 
 	<tr>
 		<td><strong>Last Name:</strong></td>
-		<td>&emsp;<%= @user.last_name %><br/></td>
+		<td>&emsp;<%= @user.last_name.capitalize %><br/></td>
 	</tr>
 
 	<tr>
@@ -40,7 +40,7 @@
 		<% if @user.reported_to == nil %>
 		<td>&emsp;Not Reported To anyone </td>
 		<% else %>
-		<td>&emsp;<%= User.find(@user.reported_to).first_name %><br/></td>
+		<td>&emsp;<%= User.find(@user.reported_to).first_name.capitalize %><br/></td>
 		<% end %>
 	</tr>
 

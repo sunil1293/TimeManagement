@@ -1,13 +1,130 @@
 
-<h2>Welcome <%= current_user.first_name %>!</h2>
-<div class = "span2">
-<%= image_tag current_user.profile_photo%></div>
-<div class = "span5">
-<h3>
-<%= current_user.role %><br/>
-<%= current_user.email %><br/>
-<%= Project.find(current_user.under_project).project_name %><br/>
-<br/>
-<p>hello sunil tasks for the day is</p>
-</h3>
+<div class = "breadcrumb span9" style = "border-radius: 5px;">
+  <table class ="table"><th><h3>My Profile Information :</h3></th></table>
+<div style = "border: 0px; width: 110px;" class = "span2">
+  <%= link_to image_tag(current_user.profile_photo,:size => "150x200"), current_user, :'data-toggle' => 'show_modal', :'data-target' => '#show_modal', :id => "image_modal" %>
 </div>
+<div class = "span7">
+  <table class ="table table-condensed table-striped">
+    <tr><td>Full Name </td><td><%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %></td></tr>
+    <tr><th>My Role</th><th><%= current_user.role %></th></tr>
+    <tr><td>Profile Status</td><td><span class="badge badge-success">Active</span></td></tr>
+    <tr><td>E Mail </td><td><%= current_user.email %></td></tr>
+    <tr><td>Project </td><td> <%= Project.find(current_user.under_project).project_name %></td></tr>
+  </table>
+</div>
+
+</div>
+
+
+<% tasks = Task.tasks_ends_in_this_week(current_user) %>
+
+<div class="accordion span9" id="accordion2">
+ <div class="accordion-group">
+   <div class="accordion-heading">
+     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+       <h4>The tasks ends in this week. </h4>
+     </a>
+   </div>
+   <div id="collapseOne" class="accordion-body collapse in">
+    <div class="accordion-inner">
+      <% if tasks.empty? %>
+      <p>There are no tasks ends in this week. </p>
+      <% else %>
+      <ol>
+        <% tasks.each do |task| %>
+          <li><%= link_to task.task, user_task_path(current_user, task) %>
+          <span class="badge badge-warning">TASK END DATE : <%= task.expected_end_date %></span></li>
+          <%- end %>
+        </ol>
+        <%- end %>
+      </div>
+    </div>
+  </div>
+
+  <% projects = Project.projects_ends_in_this_week(current_user) %>
+
+  <div class="accordion-group">
+   <div class="accordion-heading">
+     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+       <h4>The projects ends in this week. </h4>
+     </a>
+   </div>
+   <div id="collapseTwo" class="accordion-body collapse">
+     <div class="accordion-inner">
+      <ol>
+        <% if projects.count == 0 %>
+        <p>No Project notifications.</p>
+        <% else %>
+        <% projects.each do |project| %>
+        <span><li><%= link_to(project.project_name, project_path(project)) %>
+          <%= project.end_date %></li></span>
+          <% end %>
+          <% end %>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="listview grid-layout">
+ 
+   <div class="listview-item bg-color-blue">
+      <div class="pull-left" href="#">
+         <div class="listview-item-object icon-home"></div>
+      </div>
+      <div class="listview-item-body">
+         <h4 class="listview-item-heading">Media heading</h4>
+         <p class="two-lines">Body text that wraps over two lines. Vivamus elementum semper nisi.</p>
+     </div>
+   </div>
+ 
+   <div class="listview-item bg-color-green selected">
+      <div class="pull-left" href="#">
+         <div class="listview-item-object icon-windows8"></div>
+      </div>
+      <div class="listview-item-body">
+         <h4 class="listview-item-heading">Media heading</h4>
+         <p>Single line. Lorem ipsum sin ut dolorem</p>
+         <p>Single line. Lorem ipsum sin ut dolorem</p>
+      </div>
+   </div>
+ 
+   <div class="listview-item bg-color-orange">
+      <div class="pull-left" href="#">
+         <img class="listview-item-object" data-src="holder.js/60x60">
+      </div>
+      <div class="listview-item-body">
+         <p class="three-lines">Body text that wraps over three lines. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula</p>
+      </div>
+   </div>
+ 
+
+ 
+
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+// Support for AJAX loaded modal window.
+// Focuses on first input textbox after it loads the window.
+$('[data-toggle="show_modal"]').click(function(e) {
+  e.preventDefault();
+  var url = $(this).attr('href');
+  if (url.indexOf('#') == 0) {
+    $(url).modal('open');
+  } else {
+    $.get(url, function(data) {
+      $('<div class="modal hide fade">' + data + '</div>').modal();
+    }).success(function() { $('input:text:visible:first').focus(); });
+  }
+});
+});
+
+</script>
+
+

@@ -1,34 +1,22 @@
 
+<table class = "breadcrumb table">
 
-<div class = "hero-unit VISIBLE-DESKTOP">
-<center><h3><i>New Project</i></h3></center>
-<hr>
+	<tr><th><h3>NEW PROJECT</h3><hr>
+		<td><a href="<%= projects_path %>" class="win-command pull-right">
+				<span class="win-commandicon win-commandring icon-back"></span>
+				<span class="win-label">All Projects</span>
+			</a>
+		</td>
+	</tr>
 
 <%= form_for(:project, :url => { :action => :create }, :html => {:method => :post}) do |f| %>
-  
+
 <%= render :partial => "form", :locals => { :f => f } %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<tr><td></td>
+	<td><div class="actions"><%= f.submit %></div></td>
+</tr>
+
 <% end %>
 
-<%= link_to 'Back', projects_path, :class => 'btn btn-mini' %>
-
-</div>
-
-
-<div class="win-commandlayout">
-      <a class="win-command" href="#">
-         <span class="win-commandicon win-commandring icon-home"></span>
-         <span class="win-label">Home</span>
-      </a>
- 
-      <hr class="win-command" />
-      ...
-      <button class="win-command">
-         <span class="win-commandicon win-commandring icon-reload"></span>
-         <span class="win-label">Reload</span>
-      </button>
-      ...
-</div>
+</table>

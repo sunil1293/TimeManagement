@@ -80,6 +80,7 @@ class DescriptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def description_params
-      params.require(:description).permit(:status, :user_id)
+      params.require(:description).permit(:user_id, :status_on, :today_status, :number_of_hours, :select_project, :select_task )
     end
 end
+

@@ -1,23 +1,41 @@
-<p>
-  <strong>User:</strong>
-  <%= @description.user.email.split('@')[0] %>
-</p>
 
-<p>
-	<strong>Date:</strong>
-	<% date = @description.created_at.localtime %>
-	<%= date.strftime("%d-%m-%Y") %>
-</p>
+<table class="table table-striped table-condensed table-hover">
+  <thead>
+    <tr>
+      <th><h3>Daily Status Details</h3><th>
+    </tr>
+  </thead>
 
-<p>
-	<strong>Time:</strong>
-	<%= date.to_s(:short).split(" ")[2] %>
-</p>
+  <tbody>
+  	  <tr>
+  	  	<td>Status On:</td>
+  	  	<td><%= @description.status_on %></td>
+  	  </tr>
+      <tr>
+        <td>Project Name:</td>
+        <td><%= Project.find(@description.select_project).project_name %></td>
+      </tr>
+      <tr>
+        <td>Task :</td>
+        <td><%= Task.find(@description.select_task).task %></td>
+      </tr>
+      <tr>
+        <td>Number of Working Hours :</td>
+        <td><%= @description.number_of_hours %></td>
+      </tr>
+      <tr>
+        <td>Status:</td>
+        <td><%= @description.today_status %></td>
+      </tr>
+      <% date = @description.created_at.localtime %>
+      <tr>
+      <td>Created At:</td>
+      <td><%= date.strftime("%d-%m-%Y") %></td>
+      </tr>
+  </tbody>
+</table>
 
-<p>
-  <strong>Status:</strong>
-  <%= @description.status %>
-</p>
-
-<%= link_to 'Edit', edit_user_description_path(@user, @description) %> |
-<%= link_to 'Back', user_descriptions_path %>
+<center>
+<%= link_to 'Edit', edit_user_description_path(@user, @description), :class => "btn btn-mini" %> |
+<%= link_to 'Back', user_descriptions_path, :class => "btn btn-mini btn-info" %>
+</center>

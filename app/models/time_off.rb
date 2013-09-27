@@ -4,7 +4,7 @@ class TimeOff < ActiveRecord::Base
 
 	self.inheritance_column = nil
 
-	LEAVE_TYPES = ['Casual Leave', 'Sick Leave', 'Meternity Leave', 'Comp Off']
+	LEAVE_TYPES = ['Casual Leave', 'Sick Leave', 'Paternity Leave', 'Comp Off']
 
 	TYPES = ['Hours', 'Day', 'Days', 'Months']
 

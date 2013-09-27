@@ -1,5 +1,6 @@
 
 <div class = "well">
+  <table class = "table">
   <% if @time_off.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@time_off.errors.count, "error") %> prohibited this time_off from being saved:</h2>
@@ -12,36 +13,36 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :leave_type %><br>
-    <%= f.select :leave_type, TimeOff::LEAVE_TYPES, :autofocus => true %>
-  </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.select :type, TimeOff::TYPES, :autofocus => true %>
-  </div>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_field :date, :autofocus => true %>
-  </div>
-  <div class="field">
-    <%= f.label :number_of_hours %><br>
-    <%= f.text_field :number_of_hours, :autofocus => true %>
-  </div>
-  <div class="field">
-    <%= f.label :from %><br>
-    <%= f.date_field :from, :autofocus => true %>
-  </div>
-  <div class="field">
-    <%= f.label :to %><br>
-    <%= f.date_field :to, :autofocus => true %>
-  </div>
-  <div class="field">
-    <%= f.label :reason %><br>
-    <%= f.text_area :reason, :autofocus => true %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
+  <tr><div class="field">
+    <td><%= f.label :leave_type %></td>
+    <td><%= f.select :leave_type, TimeOff::LEAVE_TYPES, :autofocus => true %></td>
+  </div></tr>
+  <tr><div class="field">
+    <td><%= f.label :type %></td>
+    <td><%= f.select :type, TimeOff::TYPES %></td>
+  </div></tr>
+  <tr><div class="field">
+    <td><%= f.label :date %></td>
+    <td><%= f.date_field :date %></td>
+  </div></tr>
+  <tr><div class="field">
+    <td><%= f.label :number_of_hours %></td>
+    <td><%= f.text_field :number_of_hours %></td>
+  </div></tr>
+  <tr><div class="field">
+    <td><%= f.label :from %></td>
+    <td><%= f.date_field :from %></td>
+  </div></tr>
+  <tr><div class="field">
+    <td><%= f.label :to %></td>
+    <td><%= f.date_field :to %></td>
+  </div></tr>
+  <tr><div class="field">
+    <td><%= f.label :reason %></td>
+    <td><%= f.text_area :reason %></td>
+  </div></tr>
+  <tr><td></td><td><div class="actions">
+    <%= f.submit %></td>
+  </div></tr>
+</table>
 </div>

@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   scope :users_by_role, lambda { |role| where(role: role)  }
 
+  scope :users_by_project, lambda { |project| where( :under_project => project.id)}
+
   has_many :tasks
   has_many :descriptions
   has_many :projects

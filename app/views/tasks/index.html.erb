@@ -4,9 +4,8 @@
   <thead>
     <tr>
       <th>Project</th>
-      <th>&emsp;Task For</th>
-      <th>&emsp;Task</th>
-      <th>&emsp;Expected End Date</th>
+      <th>Task Assigned For</th>
+      <th>Task</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,10 +17,9 @@
     <% if task.user_id == current_user.id %>
       <tr>
         <td><%= Project.find(task.under_project).project_name%></td>
-        <td>&emsp;<%= User.find(task.assigned_to).first_name%></td>
-        <td>&emsp;<%= task.task %></td>
-        <td>&emsp;<%= task.expected_end_date %></td>
-        <td>&emsp;<%= link_to 'Show', user_task_path(@user, task),:class => 'btn btn-mini btn-info' %></td>
+        <td><%= User.find(task.assigned_to).first_name%></td>
+        <td style = "-ms-text-overflow: ellipsis; width: 200px; overflow: hidden;"><%= task.task %></td>
+        <td><%= link_to 'Show', user_task_path(@user, task),:class => 'btn btn-mini btn-info' %></td>
         <td>&emsp;<%= link_to 'Edit', edit_user_task_path(@user, task), :class => 'btn btn-mini' %></td>
         <td>&emsp;<%= link_to 'Destroy', {:controller => :tasks, :action => :destroy, :id => task}, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
       </tr>
@@ -36,9 +34,9 @@
   <thead>
     <tr>
       <th>Project</th>
-      <th>&emsp;Task Assigned By</th>
-      <th>&emsp;Task</th>
-      <th>&emsp;Expected end date</th>
+      <th>Task Assigned By</th>
+      <th>Task</th>
+      <th>Expected end date</th>
     </tr>
   </thead>
 
@@ -47,9 +45,9 @@
     <% if task.assigned_to == current_user.id %>
       <tr>
         <td><%= Project.find(task.under_project).project_name %></td>
-        <td>&emsp;<%= User.find(task.user_id).first_name %></td>
-        <td>&emsp;<%= task.task %></td>
-        <td>&emsp;<%= task.expected_end_date %></td>
+        <td><%= User.find(task.user_id).first_name %></td>
+        <td style = "text-overflow: ellipsis; width: 200px; overflow: hidden;"><%= task.task %></td>
+        <td><%= task.expected_end_date %></td>
       </tr>
       <% end %>
     <% end %>
@@ -57,4 +55,4 @@
 </table>
 <br>
 
-<%= link_to 'New Task', new_user_task_path,:class => 'btn btn-primary' %>
+<%= link_to 'New Task', new_user_task_path, :class => 'btn btn-primary' %>

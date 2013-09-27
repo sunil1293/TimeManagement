@@ -53,8 +53,32 @@
 <script type="text/javascript">
   $(function($) {
   $("#user_role").change(function() {
+    
+    var role = this.value;
+    var higher_authority = '';
+    if(role == "Admin")
+      {
+        higher_authority = "Admin";
+      }
+    else if(role == "Manager")
+      {
+        higher_authority = "Admin";
+      }
+    else if(role == "TechLead")
+      {
+        higher_authority = "Manager";
+      }
+    else if(role == "Developer")
+      {
+        higher_authority = "TechLead";
+      }
+    else
+      {
+        higher_authority = "TechLead";
+      }
+    
     $.ajax({
-      url: '<%= users_by_role_users_path %>' + '?role=' + this.value ,
+      url: '<%= users_by_role_users_path %>' + '?role=' + higher_authority ,
       type: 'GET',
       success: function(data){
         $('#user_reported_to').html('');

@@ -5,13 +5,15 @@ class Ability
 
     alias_action :create, :update, :destroy, :to => :crud
 
+    alias_action :update, :index, :to => :ui
+
       if user.role == 'Admin'
         can :manage, :all
       end
 
       if user.role == 'Manager'
           can :manage, :all
-          cannot :crud, [User, Task]
+          cannot :destroy, [User, Project, Task]
       end
 
       if user.role == 'TeacLead'
@@ -20,12 +22,17 @@ class Ability
       end
 
       if user.role == 'Developer'
-          cannot :manage, [Project, Task]
+          can :manage, [Task, Project]
+          can [ :ui, :show ], User
+          cannot :crud, [Project, Task]
       end
 
 
       if user.role == 'Trainee'
-          cannot :manage, [Project, Task]
+          can [ :ui, :show ], [ User, Task ]
+          can :manage, [TimeOff, Description]
+          cannot :crud, [Task]
+          cannot :manage, [Project]
       end
 
 

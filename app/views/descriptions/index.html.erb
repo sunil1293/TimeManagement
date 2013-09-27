@@ -1,11 +1,13 @@
-<h3>User status reports: </h3>
 
-<table>
-  <thead>
+
+<table class="breadcrumb table table-striped table-condensed table-hover">
+    <thead>
+<th><h3>User status reports </h3></th>
+
     <tr>
-      <th>Status On</th>
-      <th>&emsp;Status</th>
-      <th>&emsp;User</th>
+      <th>Project Name:</th>
+      <th>Task:</th>
+      <th>Status On:</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,19 +16,17 @@
 
   <tbody>
     <% @descriptions.each do |description| %>
+      <% if description.user_id == current_user.id %>
       <tr>
-        <% date = description.created_at.localtime %>
-        <td><%= date.strftime("%d-%m-%Y") %></td>
-        <td>&emsp;<%= description.today_status %></td>
-        <td>&emsp;<%= description.user.email.split('@')[0] %></td>
-        <td>&emsp;<%= link_to 'Show', user_description_path(@user, description), :class => "btn btn-mini btn-info" %></td>
-        <td>&emsp;<%= link_to 'Edit', edit_user_description_path(@user, description), :class => "btn btn-mini" %></td>
-        <td>&emsp;<%= link_to 'Destroy', {:controller=>:descriptions,:action=>:destroy, :id=>description}, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
+        <td><%= Project.find(description.select_project).project_name %></td>
+        <td><%= Task.find(description.select_task).task %></td>
+        <td><%= description.status_on %></td>
+        <td><%= link_to 'Show', user_description_path(@user, description), :class => "btn btn-mini btn-info" %></td>
+        <td><%= link_to 'Edit', edit_user_description_path(@user, description), :class => "btn btn-mini" %></td>
+        <td><%= link_to 'Destroy', {:controller=>:descriptions,:action=>:destroy, :id=>description}, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
       </tr>
+      <% end %>
     <% end %>
-  </tbody>
+<tr><td><td></td></td><td><%= link_to 'New Status', new_user_description_path, :class => "btn btn-primary" %></td></tr>
+</tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Status', new_user_description_path, :class => "btn btn-primary" %>

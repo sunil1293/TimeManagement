@@ -1,4 +1,5 @@
-<h2>Leaves You have applied.</h2>
+<h3>Leaves You have applied</h3>
+<hr>
 
 <table class = "table table-condensed table-striped table-hover">
   <thead>
@@ -6,9 +7,6 @@
       <th>Leave Type</th>
       <th>Type</th>
       <th>Date</th>
-      <th>Number of hours</th>
-      <th>From</th>
-      <th>To</th>
       <th>Reason</th>
       <th></th>
       <th></th>
@@ -19,16 +17,15 @@
   <tbody>
     <% @time_offs.each do |time_off| %>
       <tr>
+        <% if time_off.user_id == current_user.id %>
         <td><%= time_off.leave_type %></td>
         <td><%= time_off.type %></td>
         <td><%= time_off.date %></td>
-        <td><%= time_off.number_of_hours %></td>
-        <td><%= time_off.from %></td>
-        <td><%= time_off.to %></td>
         <td><%= time_off.reason %></td>
-        <td><%= link_to 'Show', user_time_off_path(@user, time_off) %></td>
-        <td><%= link_to 'Edit', edit_user_time_off_path(@user, time_off) %></td>
-        <td><%= link_to 'Destroy', time_off, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_time_off_path(@user, time_off), :class => 'btn btn-mini btn-info' %></td>
+        <td><%= link_to 'Edit', edit_user_time_off_path(@user, time_off), :class => 'btn btn-mini' %></td>
+        <td><%= link_to 'Destroy', user_time_off_path(@user, time_off), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +33,4 @@
 
 <br>
 
-<%= link_to 'New Time off', new_user_time_off_path %>
+<%= link_to 'New Time off', new_user_time_off_path, :class => 'btn btn-primary' %>

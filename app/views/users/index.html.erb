@@ -3,42 +3,40 @@ $(document).ready(function() {
 // Support for AJAX loaded modal window.
 // Focuses on first input textbox after it loads the window.
 $('[data-toggle="show_modal"]').click(function(e) {
-e.preventDefault();
-var url = $(this).attr('href');
-if (url.indexOf('#') == 0) {
-$(url).modal('open');
-} else {
-$.get(url, function(data) {
-$('<div class="modal hide fade">' + data + '</div>').modal();
-}).success(function() { $('input:text:visible:first').focus(); });
-}
+	e.preventDefault();
+	var url = $(this).attr('href');
+	if (url.indexOf('#') == 0) {
+		$(url).modal('open');
+	} else {
+		$.get(url, function(data) {
+			$('<div class="modal hide fade">' + data + '</div>').modal();
+		}).success(function() { $('input:text:visible:first').focus(); });
+	}
 });
 });
 </script>
 
-<h4>List of all users</h4><br/>
-
+<table>
+	<thead><th><h2>  List of Users in the Organization :</h2></th></thead>
+</table>
 <div class="row-fluid">
-<% @users.each do |user| %>
-<% for i in 1..20 %>
-<div class="container">
-<ul class="thumbnails with-caption">
-<li style="width:110px" class="span2">
-<div style="border: 0px;" class="thumbnail" id="image_div">
+	<% @users.each do |user| %>
+	<% for i in 1..10 %>
+	<div>
+		<ul class="thumbnails with-caption">
+			<li style="width:110px; margin: 0px;">
+				<div style="border: 0px;" class="thumbnail">
 
-  <%= link_to image_tag(user.profile_photo,:size => "150x200"), user, :class => 'thumbnail', :'data-toggle' => 'show_modal', :'data-target' => '#show_modal', :id => "image_modal" %>
-        
-<div class="caption">
-<p><%=user.first_name.capitalize%><small> <%=user.role%></small></p>
+					<%= link_to image_tag(user.profile_photo,:size => "150x200"), user, :class => 'thumbnail', :'data-toggle' => 'show_modal', :'data-target' => '#show_modal', :id => "image_modal" %>
+
+					<div style= "border: 5px; color: white; background-color: skyblue; margin-right: -8px;" class="caption">
+						<p><%=user.first_name.capitalize%><small> <%=user.role%></small></p>
+					</div>
+
+				</div>
+			</li>
+			<% end %>
+			<% end %>
+		</ul>
+	</div>
 </div>
-
-</div>
-</li>
-<% end %>
-<% end %>
-</ul>
-</div>
-</div>
-
-
-

@@ -34,29 +34,14 @@
       <!-- Size should be 32 x 32 pixels -->
       <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
-      <%= javascript_include_tag "jquery-1.10.2.js", "application.js", "http://code.jquery.com/ui/1.10.3/jquery-ui.js", "projects.js" %>
+      <%= javascript_include_tag "jquery-1.10.2.js", "application.js", "http://code.jquery.com/ui/1.10.3/jquery-ui.js" %>
       
       <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 
-      <script language="javascript">
-      function changeImage() {
-
-        if (document.getElementById("menuImage").src != "/images/menu1.png") 
-        {
-          document.getElementById("menuImage").src = "/images/menu.png";
-        }
-        else 
-        {
-          document.getElementById("menuImage").src = "/images/menu1.png";
-        }
-      }
-      </script>
-
-
     </head>
     <% if !user_signed_in? %>
-    <body style = "background-color: black; padding-bottom: 60%">
+    <body style = "background-color: black; padding-bottom: 80%">
       <% else %>
       <body>
         <% end %>
@@ -68,93 +53,108 @@
            </a>
            <% if user_signed_in? %>
            <ul class="nav ace-nav pull-right">
-            <li>
-              <a id="first-gray" data-toggle="dropdown" class="dropdown-toggle first-gray"  >
-                <i style="-webkit-animation: vertical 2s ease 2s 5;" class="icon-tasks"></i>
-                <span class="badge badge-grey">1</span>
-              </a>
-            </li>
 
-
-            <li class="dropdown">
+            <li class="dropdown" data-toggle = "tooltip" title = "Tasks Notifications">
               <a id="first-purple" class="dropdown-toggle" href="#" data-toggle="dropdown">
+
+                <% ending_tasks = Task.tasks_ends_in_this_week(current_user) %>
+
+                <% projects = Project.projects_ends_in_this_week(current_user) %>
+
+
                 <i class="icon-bell-alt icon-animated-bell"></i>
-                <span class="badge badge-important">5</span>
+                <span class="badge badge-important"><%= (ending_tasks.count)+(projects.count) %></span>
               </a>
-              <ul id="dropdown-menu" class="dropdown-menu">
-
-
-                <% t = Task.where(assigned_to: current_user.id) %>
-                <% User.joins(:tasks).where(tasks: {assigned_to: current_user.id}) %>
-                <% t.each do |task| %>
-                  <li><%= task.task %></li>
-                <% end %>
-
-                <li>New Notification1</li>
-                <li>New Notification2</li>
+              <ul style="padding-left: 10px" id="dropdown-menu" class="dropdown-menu">
+                <p>Task Notifications :</p>
                 <li class="divider"></li>
-                <li>New Notification3</li>
-                <li>New Notification4</li>
-                <li>New Notification5</li>
-              </ul>
-            </li>
-            
-            <li class="dropdown">
-              <a id="first-green" class="dropdown-toggle" href="#" data-toggle="dropdown">
-                <i class="icon-list-5"></i>
-                <span class="badge badge-success">3</span>
-              </a>
-              <ul id="dropdown-menu" class="dropdown-menu">
-                <% tasks = Task.where(assigned_to: current_user.id) %>
-                <% tasks.each do |task| %>
-                   <li><%= link_to  task.task , user_task_path(current_user, task) %></li>
-                <% end %>
-                <li class="divider"></li>
-                <li><%= link_to 'All Tasks', user_tasks_path(current_user) %></li>
-              </ul>
-            </li>
+                <% if ending_tasks.count == 0 %>
+                <p>No Task notifications.</p>
+                <% else %>
+                <% ending_tasks.each do |task| %>
+                <span><li><%= link_to(task.task, user_task_path(current_user, task)) %>
+                  <%= task.expected_end_date %></li></span>
+                  <% end %>
+                  <% end %>
 
-
-            <li class="dropdown-toggle" data-toggle="dropdown" style="backgroung-color: blue; cursor: pointer">
-              <%= image_tag(current_user.profile_photo, :style =>"height: 40px; width: 42px;", :class => "img-circle")%>
-              Welcome, <%= current_user.first_name %>  <i class="icon-angle-down"></i></li>
-              <ul id="dropdown-menu" class="dropdown-menu">
-                <li><%= link_to " Profile", '', :class => "icon-profile" %></li>
-                <li><%= link_to " Settings", edit_user_path(current_user), :class => 'icon-cogs' %></li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to(' Logout', destroy_user_session_path, :method => :delete, :class => "icon-switch-3") %>
+                  <li class="divider"></li>
+                  <p>Project Notifications :</p>
+                  <li class="divider"></li>
+                  <% if projects.count == 0 %>
+                  <p>No Project notifications.</p>
+                  <% else %>
+                  <% projects.each do |project| %>
+                  <span id="hide-overflow"><li><%= link_to(project.project_name, project_path(project)) %>
+                    <%= project.end_date %></li></span>
+                    <% end %>
+                    <% end %>
+                  </ul>
                 </li>
+
+                <li class="dropdown" data-toggle = "tooltip" title = "New Tasks for You">
+                  <a id="first-green" class="dropdown-toggle" href="#" data-toggle="dropdown">
+                    <% tasks = Task.tasks_for_current_user(current_user) %>
+                    <i class="icon-list-5"></i>
+                    <span class="badge badge-success"><%= tasks.count %></span>
+                  </a>
+                  <ul id="dropdown-menu" class="dropdown-menu">
+                    <% tasks.each do |task| %>
+                    <li id="hide-overflow"><%= link_to  task.task , user_task_path(current_user, task) %></li>
+                    <% end %>
+                    <li class="divider"></li>
+                    <li><%= link_to 'All Tasks', user_tasks_path(current_user) %></li>
+                  </ul>
+                </li>
+
+
+                <li class="dropdown-toggle" data-toggle="dropdown" style="backgroung-color: blue; cursor: pointer">
+                  <%= image_tag(current_user.profile_photo, :style =>"height: 40px; width: 42px;", :class => "img-circle")%>
+                  Welcome, <%= current_user.first_name %>  <i class="icon-angle-down"></i></li>
+                  <ul id="dropdown-menu" class="dropdown-menu">
+                    <li><%= link_to " Profile", '', :class => "icon-profile" %></li>
+                    <li><%= link_to " Settings", edit_user_path(current_user), :class => 'icon-cogs' %></li>
+                    <li class="divider"></li>
+                    <li>
+                      <%= link_to(' Logout', destroy_user_session_path, :method => :delete, :class => "icon-switch-3") %>
+                    </li>
+                  </ul>
+                  <li><a href=""></a></li>
+                </ul>
+                
+              </div>
+
+              <ul style="height: 28px;" class="breadcrumb">
               </ul>
-              <li><a href=""></a></li>
-            </ul>
-            <% end %>
-          </div>
-        </div>
+              <% end %>
+            </div>
 
 
-        <div style="margin-left: 0px; margin-top: -20px;" class="span3">
-          <div class="navbar">
-            <% if user_signed_in? %>
-            <a data-toggle="collapse" data-target="#slide">
-              <img src="/images/menu1.png" id="menuImage" onclick="changeImage()"  />
-            </a>
-            <img style="display: none" src="/images/menu.png"/>
 
+            <div style="margin-left: 0px; margin-top: -65px;" class="span3">
+              <div class="navbar">
+                <% if user_signed_in? %>
+                <a data-toggle="collapse" data-target="#slide">
+                  <div class="first_image"></div>
+                </a>
+                <script>
+                $( ".first_image" ).click(function() {
+                  $( this ).toggleClass( "second_image" );
+                });
+                </script>
 
-            <div id="slide" class="collapse in sidebar display">
-              <div class="sidebar-shortcuts">
-                <div class="sidebar-shortcuts-large">
-                  <a href = "/home/index"><button class="btn btn-small btn-success">
-                    <i class="icon-home"></i>
+                <div id="slide" class="collapse in sidebar display">
+                  <div class="sidebar-shortcuts">
+                    <div class="sidebar-shortcuts-large">
+                      <a href = "/home/index"><button class="btn btn-small btn-success">
+                        <i class="icon-home"></i>
+                      </button></a>
+                      &ensp;<a href='/users/<%= current_user.id %>/descriptions/new'><button class="btn btn-small btn-info">
+                      <i class="icon-pencil"></i>
+                    </button></a>
+                    &ensp;<a href="/users"><button class="btn btn-small btn-warning">
+                    <i class="icon-group"></i>
                   </button></a>
-                  <a href='/users/<%= current_user.id %>/descriptions/new'><button class="btn btn-small btn-info">
-                    <i class="icon-pencil"></i>
-                  </button></a>
-                  &ensp;<a href="/users"><button class="btn btn-small btn-warning">
-                  <i class="icon-group"></i>
-                </button></a>
-                <a href='/users/<%= current_user.id %>/edit'><button class="btn btn-small btn-danger">
+                  &ensp;<a href='/users/<%= current_user.id %>/edit'><button class="btn btn-small btn-danger">
                   <i class="icon-cogs"></i>
                 </button></a>
               </div>
@@ -192,6 +192,7 @@
                </ul>
              </div>
            </li>
+           <% if can? :crud, @project %>
            <li class="active">
              <a class="span3" data-toggle="collapse" data-target="#projects">
               <i class="icon-book"></i>
@@ -215,6 +216,7 @@
              </ul>
            </div>
          </li>
+         <%- end %>
          <li class="active">
            <a class="span3" data-toggle="collapse" data-target="#usermanage">
             <i class="icon-user"></i>
@@ -223,12 +225,14 @@
           </a>
           <div id="usermanage" class="collapse">
             <ul class="nav nav-list">
+              <% if can? :crud, @user %>
               <li class="active">
                 <a href="/users/new " class="span3">
                   <i class="icon-plus"></i>
                   <span class="menu-text">New User</span>
                 </a>
               </li>
+              <% end %>
               <li class="active">
                <a href="/users" class="span3">
                  <i class="icon-group"></i>
@@ -263,43 +267,49 @@
        </ul>
      </div>
    </li>
-   <li class="active">
+   <li class="active li">
      <a href="/users/<%= current_user.id %>/time_offs/new" class="span3">
       <i class="icon-minus"></i>
       <span >Time Off</span>
     </a>
   </li>
-
-
-  <li class="active">
-   <a href='/users/<%= current_user.id %>/edit' class="span3">
-     <i class="icon-list-alt"></i>
-     <span class="menu-text">My Profile</span>
-   </a>
- </li>
-
- <li class="active">
-   <a class="span3" data-toggle="collapse" data-target="#feedbacks">
-    <i class="icon-book"></i>
-    <span >Feedback</span>
-    <b class="arrow icon-angle-down"></b>
+  <li class="active li">
+   <a href="/users/<%= current_user.id %>/time_offs" class="span3">
+    <i class="icon-plus-2"></i>
+    <span >Leaves Applied</span>
   </a>
-  <div id="feedbacks" class="collapse">
-    <ul class="nav nav-list">
-      <li class="active">
-        <a href="/feedbacks/new" class="span3">
-          <i class="icon-calendar"></i>
-          <span class="menu-text">New Feedback</span>
-        </a>
-      </li>
-      <li class="active">
-       <a href="/feedbacks" class="span3">
-         <i class="icon-picture"></i>
-         <span class="menu-text">List all Feedbacks</span>
-       </a>
-     </li>
-   </ul>
- </div>
+</li>
+
+
+<li class="active li">
+ <a href='/users/<%= current_user.id %>/edit' class="span3">
+   <i class="icon-list-alt"></i>
+   <span class="menu-text">My Profile</span>
+ </a>
+</li>
+
+<li class="active">
+ <a class="span3" data-toggle="collapse" data-target="#feedbacks">
+  <i class="icon-book"></i>
+  <span >Feedback</span>
+  <b class="arrow icon-angle-down"></b>
+</a>
+<div id="feedbacks" class="collapse">
+  <ul class="nav nav-list">
+    <li class="active">
+      <a href="/feedbacks/new" class="span3">
+        <i class="icon-calendar"></i>
+        <span class="menu-text">New Feedback</span>
+      </a>
+    </li>
+    <li class="active">
+     <a href="/feedbacks" class="span3">
+       <i class="icon-picture"></i>
+       <span class="menu-text">List all Feedbacks</span>
+     </a>
+   </li>
+ </ul>
+</div>
 </li>
 
 </ul>
@@ -321,6 +331,7 @@
 
   <footer>
     <% if user_signed_in? %>
+    <br/><br/>
     <center><p>Time Sheet Application. &copy; Company 2013</p></center>
     <% end %>    
   </footer>
@@ -332,6 +343,8 @@
       </script>
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->
+
+
 
 
     </body>
