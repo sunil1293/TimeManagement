@@ -32,6 +32,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    set_user
   end
 
   # POST /users
@@ -53,6 +54,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        UserMailer.registration_confirmation(@user).deliver
         format.html { redirect_to users_url, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else

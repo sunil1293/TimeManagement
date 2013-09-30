@@ -20,16 +20,3 @@
 
 //Edit Page JAVA Script
 
-
-
-function changeImage()
-{
-	if (document.getElementById("menuImage").src != "/images/menu1.png") 
-	{
-		document.getElementById("menuImage").src = "/images/menu.png";
-	}
-	else 
-	{
-		document.getElementById("menuImage").src = "/images/menu1.png";
-	}
-}
