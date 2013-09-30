@@ -17,10 +17,7 @@
     <td><%= f.label :leave_type %></td>
     <td><%= f.select :leave_type, TimeOff::LEAVE_TYPES, :autofocus => true %></td>
   </div></tr>
-  <tr><div class="field">
-    <td><%= f.label :type %></td>
-    <td><%= f.select :type, TimeOff::TYPES %></td>
-  </div></tr>
+
   <tr><div class="field">
     <td><%= f.label :date %></td>
     <td><%= f.date_field :date %></td>

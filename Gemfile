@@ -8,6 +8,8 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-timepicker-rails'
+gem "actionmailer"
+gem "mail"
 
 group :development, :test do
 	gem 'rspec-rails'

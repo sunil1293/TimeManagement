@@ -81,6 +81,6 @@ class TimeOffsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_off_params
-      params.require(:time_off).permit(:leave_type, :type, :user_id, :date, :number_of_hours, :from, :to, :reason)
+      params.require(:time_off).permit(:leave_type, :user_id, :date, :number_of_hours, :from, :to, :reason)
     end
 end
