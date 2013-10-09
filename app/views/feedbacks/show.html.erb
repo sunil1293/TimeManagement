@@ -1,14 +1,21 @@
 <!-- <p id="notice"><%= notice %></p> -->
+<div class="breadcrumb">
+<div id="form-heading">
+	<h3>Feedback Details</h3><%= image_tag 'divider.png' %>
+</div>
+<table class="table table-condensed table-striped table-hover">
+<tr>
+  <td>Name:</td>
+  <td><%= @feedback.name %></td>
+</tr>
 
-<p>
-  <strong>Name:</strong>
-  <%= @feedback.name %>
-</p>
+<tr>
+  <td>Feedback:</td>
+  <td><%= @feedback.feedback %></td>
+</tr>
 
-<p>
-  <strong>Feedback:</strong>
-  <%= @feedback.feedback %>
-</p>
-
-<%= link_to 'Edit', edit_feedback_path(@feedback) %> |
-<%= link_to 'Back', feedbacks_path %>
+</table>
+<center><%= link_to 'Edit', edit_feedback_path(@feedback), :class => "btn btn-mini btn-info" %> |
+		<%= link_to 'Back', feedbacks_path, :class => 'btn btn-mini' %>
+</center>
+</div>

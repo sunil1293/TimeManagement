@@ -11,15 +11,20 @@ class User < ActiveRecord::Base
 
   validates_attachment_content_type :profile_photo, :content_type => ['image/jpeg' , 'image/png']
 
-  validates_presence_of :first_name
+  validates_presence_of :first_name, :role
 
-  validates_confirmation_of :password
+  validates :password, confirmation: true
 
   ROLES = ['Admin', 'Manager', 'TechLead', 'Developer', 'Trainee']
 
-  scope :users_by_role, lambda { |role| where(role: role)  }
+  STATES = ['Active', 'In Active']
 
-  scope :users_by_project, lambda { |project| where( :under_project => project.id)}
+  scope :users_by_role, lambda { |role| where(role: role) }
+
+  scope :users_by, lambda { |project| where( :under_project => project.id) }
+
+  scope :users_by_project, lambda { |project| where(under_project: project) }
+
 
   has_many :tasks
   has_many :descriptions

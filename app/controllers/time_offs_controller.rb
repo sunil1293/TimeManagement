@@ -23,6 +23,7 @@ class TimeOffsController < ApplicationController
   # GET /time_offs/1/edit
   def edit
     set_user
+    set_time_off
   end
 
   # POST /time_offs
@@ -46,6 +47,7 @@ class TimeOffsController < ApplicationController
   # PATCH/PUT /time_offs/1.json
   def update
     set_user
+    set_time_off
     respond_to do |format|
       if @time_off.update(time_off_params)
         format.html { redirect_to user_time_off_path(@user, @time_off), notice: 'Time off was successfully updated.' }
@@ -68,6 +70,11 @@ class TimeOffsController < ApplicationController
     end
   end
 
+  def approve_leave
+    set_time_off
+    set_user
+  end
+
   private
 
     def set_user
@@ -81,6 +88,6 @@ class TimeOffsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_off_params
-      params.require(:time_off).permit(:leave_type, :user_id, :date, :number_of_hours, :from, :to, :reason)
+      params.require(:time_off).permit(:leave_type, :user_id, :date, :number_of_hours, :from, :to, :reason, :type, :status)
     end
 end

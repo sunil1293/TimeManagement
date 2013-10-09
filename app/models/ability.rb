@@ -13,7 +13,7 @@ class Ability
 
       if user.role == 'Manager'
           can :manage, :all
-          cannot :destroy, [User, Project, Task]
+          cannot :destroy, [User, Project]
       end
 
       if user.role == 'TeacLead'
@@ -29,6 +29,7 @@ class Ability
 
 
       if user.role == 'Trainee'
+          can :my_tasks , Task
           can [ :ui, :show ], [ User, Task ]
           can :manage, [TimeOff, Description]
           cannot :crud, [Task]

@@ -2,7 +2,7 @@
 
 <table class="breadcrumb table table-striped table-condensed table-hover">
     <thead>
-<th><h3>User status reports </h3></th>
+<th><h3 id="heading">User status reports</h3><%= image_tag "divider.png" %></th>
 
     <tr>
       <th>Project Name:</th>
@@ -27,6 +27,6 @@
       </tr>
       <% end %>
     <% end %>
-<tr><td><td></td></td><td><%= link_to 'New Status', new_user_description_path, :class => "btn btn-primary" %></td></tr>
+<tr><td></td><td><%= link_to 'New Status', new_user_description_path, :class => "btn btn-primary" %></td></tr>
 </tbody>
 </table>

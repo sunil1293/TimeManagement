@@ -1,7 +1,7 @@
-<div class="well span8">
-
-<h3 style="margin-left: 70px;">create new user</h3>
-<hr/>
+<div class="breadcrumb span8">
+<div id="form-heading">
+  <h3>Create New User</h3><%= image_tag "divider.png" %>
+</div>
 
 <%= form_for(:user, :url => {:action => :create}, :html => {:method => :post}) do |f| %>
  
@@ -22,17 +22,20 @@
   <div>
   <%= f.text_field :first_name, :placeholder => "first name", :style => "margin-left: 70px;", :id => "input_medium" %>
 
- 
-  <%= f.text_field :last_name, :placeholder => "last name", :id => "input_medium" %></div>
+  <%= f.text_field :last_name, :placeholder =>"last name", :id =>"input_medium" %>
+  </div>
 
   <div>
-  <%= f.email_field :email, :placeholder => "email", :id => "input_large" %></div>
+  <%= f.email_field :email, :placeholder => "email", :id => "input_large" %>
+  </div>
 
   <div>
-  <%= f.password_field :password, :placeholder => "password", :id => "input_large" %></div>
+  <%= f.password_field :password, :placeholder =>"password", :id =>"input_large" %>
+  </div>
 
   <div>
-  <%= f.password_field :password_confirmation, :placeholder => "password conformation", :id => "input_large" %></div>
+  <%= f.password_field :password_confirmation, :placeholder => "password conformation", :id => "input_large" %>
+  </div>
 
   <div style="float: left; margin-left: 70px;">
   <%= f.label :role, :style => "font-size: 16px; margin-left: -185px;" %>
@@ -43,7 +46,7 @@
   <%= f.select :reported_to, '' %>
   </div>
 
-  <div ><%= f.submit "sign up user", :class => "btn btn-info btn-large" %></div>
+  <div ><%= f.submit "create new user", :class => "btn btn-info btn-large" %></div>
 <% end %>
 </center>
 </div>
@@ -57,25 +60,15 @@
     var role = this.value;
     var higher_authority = '';
     if(role == "Admin")
-      {
-        higher_authority = "Admin";
-      }
+      { higher_authority = "Admin"; }
     else if(role == "Manager")
-      {
-        higher_authority = "Admin";
-      }
+      { higher_authority = "Admin"; }
     else if(role == "TechLead")
-      {
-        higher_authority = "Manager";
-      }
+      { higher_authority = "Manager"; }
     else if(role == "Developer")
-      {
-        higher_authority = "TechLead";
-      }
+      { higher_authority = "TechLead"; }
     else
-      {
-        higher_authority = "TechLead";
-      }
+      { higher_authority = "TechLead"; }
     
     $.ajax({
       url: '<%= users_by_role_users_path %>' + '?role=' + higher_authority ,

@@ -78,7 +78,11 @@ class TasksController < ApplicationController
      respond_to do |format|
         format.json { render json: users.pluck(:id, :first_name) }
      end
-  end    
+  end
+
+  def my_tasks
+    @tasks = Task.all
+  end 
 
   private
 
@@ -93,6 +97,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:task, :expected_end_date, :user_id, :assigned_to, :under_project, :start_date, :status, :description)
+      params.require(:task).permit(:task, :expected_end_date, :user_id, :assigned_to, :project, :start_date, :status, :description)
     end
 end

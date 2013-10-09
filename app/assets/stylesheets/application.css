@@ -12,17 +12,51 @@
  *= require bootstrap-timepicker
  *= require_tree .
  */
-  .first_image {
-    width: 85px;
-    height: 50px;
-    background-image: url('/images/menu1.png');
-    background-repeat: no-repeat;
-  }
-  .second_image {
-    width: 85px;
-    height: 55px;
-    background-image: url('/images/menu.png');
-  }
+
+#hand:hover
+{
+  cursor: pointer;
+}
+
+.black-background
+{
+  background-color: black;
+  padding-bottom: 80%;
+}
+
+#profile-pic-background
+{
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.first_image
+{
+  width: 85px;
+  height: 50px;
+  background-image: url('/images/menu1.png');
+  background-repeat: no-repeat;
+}
+.second_image
+{
+  width: 85px;
+  height: 55px;
+  background-image: url('/images/menu.png');
+}
+
+#form-heading
+{
+  color: #24A0DA;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#profile-photo
+{
+  height: 40px;
+  width: 42px;
+}
 
 #overflow
 {
@@ -31,13 +65,17 @@
   width: 300px;
 }
 
+#slide
+{
+  background-color: black;
+  vertical-align: center;
+}
 
 #dropdown-menu
 {
   z-index: 100000;
   border-radius: 0px;
 }
-
 
 p#links
 {
@@ -50,21 +88,19 @@ p#links:hover
 {
 	background-color: #CCCCCC;
 	border-radius: 6px;
-    text-decoration: none;
+  text-decoration: none;
 }
-
 
 a#feedback {
-    top: 30%;
-    right: 0px;
-    width: 42px;
-    height: 102px;
-    position: fixed;
-    z-index: 100;
-    background-image: url("feedback_right.png");
-    background-color:#CCCCCC
+  top: 30%;
+  right: 0px;
+  width: 42px;
+  height: 102px;
+  position: fixed;
+  z-index: 100;
+  background-image: url("feedback_right.png");
+  background-color:#CCCCCC
 }
-
 
 .thumbnails.with-caption p {
   margin: 0;
@@ -80,33 +116,38 @@ a#feedback {
   color: #999;
 }
 
+.caption
+{
+   background-color: skyblue;
+   margin-right: -8px;
+}
+
 .remove_underline
 {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 #modal
 {
-    display: block; 
-    background-color: rgb(238, 238, 238);
+  display: block; 
+  background-color: rgb(238, 238, 238);
 }
-
 
 span#head{
 
-    background-image: url("icons.png");
-    background-position: -572px -41px;
-    z-index: 100;
-    background-color: white;
-    height:45px; width: 50px;
+  background-image: url("icons.png");
+  background-position: -572px -41px;
+  z-index: 100;
+  background-color: white;
+  height:45px; width: 50px;
 }
 
 span#lock
 {
-background-image: url("icons.png");
-background-position: -217px -95px;
-background-color: white;
-height:45px; width: 50px;
+  background-image: url("icons.png");
+  background-position: -217px -95px;
+  background-color: white;
+  height:45px; width: 50px;
 }
 
 #my_input
@@ -119,10 +160,10 @@ height:45px; width: 50px;
 
 #login_button
 {
-width: 54%; height: 52px; border:5px;
-background: linear-gradient(to bottom, rgb(51, 171, 238) 0px, rgb(16, 138, 206) 100%) repeat scroll 0% 0% transparent;
-font-size: 17px;
-color: white;
+  width: 54%; height: 52px; border:5px;
+  background: linear-gradient(to bottom, rgb(51, 171, 238) 0px, rgb(16, 138, 206) 100%) repeat scroll 0% 0% transparent;
+  font-size: 17px;
+  color: white;
 }
 
 #shared_links
@@ -132,14 +173,13 @@ color: white;
 
 #facebook
 {
-background-image: url("icons.png");
-background-position: -532px 0px;
-border: 0px;
-background-color: rgb(0, 109, 204);
-width: 45px;
-height: 45px;
-
-font-size: 17px;
+  background-image: url("icons.png");
+  background-position: -532px 0px;
+  border: 0px;
+  background-color: rgb(0, 109, 204);
+  width: 45px;
+  height: 45px;
+  font-size: 17px;
 }
 
 #facebook_button
@@ -148,18 +188,12 @@ font-size: 17px;
   width: 246px;
   border-left: 0px;
   background-color: rgb(0, 109, 204);
-
   font-size: 17px;
-}
-
-#divider1
-{
-  background-image: url("divider.png");
 }
 
 #cross
 {
-   margin-right: 25px; margin-top: 10px;
+ margin-right: 25px; margin-top: 10px;
 }
 
 #image_style
@@ -184,24 +218,23 @@ font-size: 17px;
   height: 40px;
   width: 220px;
 }
+
 #input_large
 {
   margin-left: -40px;
   height: 40px; width: 440px;
 }
 
+.header-right{
+  background: url("header_bar.png");
+  height: 40px;
+  width: 100%;
+}
 
-
-.header_right{
-    background: url("header_bar.png");
-    height: 40px;
-    width: 100%;
- }
-
- .icon-size{
-    width: 10px;
-    height: 10px;
- }
+.icon-size{
+  width: 10px;
+  height: 10px;
+}
 
 #first-gray{
   background-color: black;
@@ -218,25 +251,11 @@ font-size: 17px;
   cursor: pointer;
 }
 
-a#first-gray:hover
-{
-  background-color: black;
-}
-
-a#first-purple:hover{
-  background-color: purple;
-}
-
-a#first-green:hover{
-  background-color: green;
-}
-
 #image_modal
 {
   height: 150px;
   width: 100px;
 }
-
 
 #hide-overflow
 {

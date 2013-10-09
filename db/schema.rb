@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130927121039) do
+ActiveRecord::Schema.define(version: 20131008052216) do
 
   create_table "descriptions", force: true do |t|
     t.integer  "user_id"
@@ -52,10 +52,10 @@ ActiveRecord::Schema.define(version: 20130927121039) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "assigned_to"
-    t.integer  "under_project"
     t.date     "start_date"
     t.string   "status"
     t.text     "description"
+    t.integer  "select_project"
   end
 
   create_table "time_offs", force: true do |t|
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20130927121039) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "leave_type"
+    t.string   "type"
+    t.string   "status"
   end
 
   create_table "users", force: true do |t|
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 20130927121039) do
     t.string   "profile_photo_content_type"
     t.integer  "profile_photo_file_size"
     t.datetime "profile_photo_updated_at"
+    t.string   "status"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

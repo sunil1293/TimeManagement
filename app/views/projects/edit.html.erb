@@ -1,20 +1,25 @@
+<div class = "breadcrumb">
 
-<table class = "table breadcrumb">
-<tr><th><h3>EDIT PROJECT</h3></th></tr>
-<hr>
-<%= form_for(@project) do |f| %>
+	<div id="form-heading">
+		<h3>Edit Project</h3><%= image_tag "divider.png" %>
+	</div>
 
-<%= render :partial => "form", :locals => { :f => f } %>
+	<%= form_for(@project) do |f| %>
+	<table class = "table table-condensed">
+		<%= render :partial => "form", :locals => { :f => f } %>
 
-<tr><td><div class="actions"><%= f.submit %></div></td></tr>
+		<tr>
+			<td><div class="pull-right"><%= f.submit %></div></td>
+		</tr>
 
-<% end %>
+		<% end %>
 
+	</table>
+</div>
+<span class ="win-command">
+	<%= link_to 'Back', projects_url, :class => 'win-commandicon win-commandring icon-back', :style => "" %>
+</span>
 
-
-<span style = "margin-top: -60px;" class ="win-command">
-<%= link_to 'Back', projects_url, :class => 'win-commandicon win-commandring icon-back', :style => "" %></span>
-<span style = "margin-top: -60px; margin-right: 20px;" class ="pull-right win-command">
-<%= link_to 'Show', @project, :class => 'win-commandicon win-commandring icon-upload', :style => "" %></span>
-
-</table>
+<span class ="pull-right win-command">
+	<%= link_to 'Show', @project, :class => 'win-commandicon win-commandring icon-upload', :style => "" %>
+</span>

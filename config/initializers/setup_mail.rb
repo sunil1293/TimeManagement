@@ -1,10 +1,10 @@
 
 ActionMailer::Base.smtp_settings = {  
   :address              => "smtp.gmail.com",
-  :port                 => 587,
-  :domain               => 'effonetech.com',
-  :user_name            => 'sunil',
-  :password             => 'sunil',
+  :port                 => 25,
+  :domain               => 'google.com',
+  :user_name            => 'bg.sunilkumar1@gmail.com',
+  :password             => '8688680356',
   :authentication       => 'plain',
   :enable_starttls_auto => true
 }
