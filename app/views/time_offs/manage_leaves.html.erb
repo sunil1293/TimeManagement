@@ -1,0 +1,47 @@
+
+<div class = "breadcrumb">
+<div id="form-heading">
+  <h3>Leaves applied</h3><%= image_tag "divider.png" %>
+</div>
+<table class = "table table-condensed table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Leave Type</th>
+      <th>Type</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @time_offs.each do |time_off| %>
+      <% if time_off.user_id == current_user.id %>
+      <tr>
+        <td><%= time_off.leave_type %></td>
+        <td><%= time_off.type %></td>
+        <td><%= time_off.date %></td>
+        <% if time_off.status == 'New' %>
+        <td><span class="label label-info"><%= time_off.status %></span></td>
+        <% elsif time_off.status == 'Approved' %>
+        <td><span class="label label-success"><%= time_off.status %></span></td>
+        <% else %>
+        <td><span class="label label-important"><%= time_off.status %></span></td>
+        <% end %>
+        <td><%= link_to 'Show', user_time_off_path(@user, time_off), :class => 'btn btn-mini btn-info' %></td>
+        <td><%= link_to 'Edit', edit_user_time_off_path(@user, time_off), :class => 'btn btn-mini' %></td>
+        <td><%= link_to 'Destroy', user_time_off_path(@user, time_off), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+      </tr>        
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+
+<center><%= link_to 'New Time off', new_user_time_off_path, :class => 'btn btn-primary' %></center>
+</div>
+
+
+

@@ -1,0 +1,43 @@
+
+<div class = "breadcrumb span8">
+  <div id="form-heading">
+    <h3>Profile Information</h3><%= image_tag "divider.png" %>
+  </div>
+
+
+  <div style = "border: 0px; width: 110px;" class = "span2">
+    <%= link_to image_tag(@user.profile_photo, :style => "height: 150px; width: 100px;"), @user, :'data-toggle' => 'show_modal', :'data-target' => '#show_modal', :id => "image_modal" %>
+  </div>
+  <div class = "span6">
+    <table class ="table table-condensed table-striped">
+      <tr>
+        <td>Full Name </td>
+        <td><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></td>
+      </tr>
+      <tr>
+        <th>My Role</th>
+        <th><%= @user.role %></th>
+      </tr>
+      <tr>
+        <td>Profile Status</td>
+        <% if @user.status == 'Active' %>
+        <td><span class="badge badge-success">Active</span></td>
+        <% else %>
+        <td><span class="badge badge-warning">In Active</span></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td>E Mail </td>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <td>Project </td>
+        <td> <%= Project.find(@user.under_project).project_name %></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+
+

@@ -1,7 +1,32 @@
+
+<div id = "form-heading">
+	<h3>Users in the Organization</h3><%= image_tag 'divider.png' %>
+</div>
+
+<div class="row-fluid">
+	<% @users.each do |user| %>
+	<div>
+		<ul class="thumbnails with-caption">
+			<li style="width:110px; margin: 0px;">
+				<div style="border: 0px;" class="thumbnail">
+
+					<%= link_to image_tag(user.profile_photo, :style => "height: 150px; width: 100px;"), user, :class => 'thumbnail', :'data-toggle' => 'show_modal', :'data-target' => '#show_modal', :id => "image_modal" %>
+
+					<div class="caption">
+						<p><%=user.first_name.capitalize%><small> <%=user.role%></small></p>
+					</div>
+
+				</div>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+</div>
+
 <script type="text/javascript">
-$(document).ready(function() {
+	$(document).ready(function() {
 // Support for AJAX loaded modal window.
-// Focuses on first input textbox after it loads the window.
+
 $('[data-toggle="show_modal"]').click(function(e) {
 	e.preventDefault();
 	var url = $(this).attr('href');
@@ -15,28 +40,3 @@ $('[data-toggle="show_modal"]').click(function(e) {
 });
 });
 </script>
-
-<table>
-	<thead><th><h2>  List of Users in the Organization :</h2></th></thead>
-</table>
-<div class="row-fluid">
-	<% @users.each do |user| %>
-	<% for i in 1..10 %>
-	<div>
-		<ul class="thumbnails with-caption">
-			<li style="width:110px; margin: 0px;">
-				<div style="border: 0px;" class="thumbnail">
-
-					<%= link_to image_tag(user.profile_photo,:size => "150x200"), user, :class => 'thumbnail', :'data-toggle' => 'show_modal', :'data-target' => '#show_modal', :id => "image_modal" %>
-
-					<div style= "border: 5px; color: white; background-color: skyblue; margin-right: -8px;" class="caption">
-						<p><%=user.first_name.capitalize%><small> <%=user.role%></small></p>
-					</div>
-
-				</div>
-			</li>
-			<% end %>
-			<% end %>
-		</ul>
-	</div>
-</div>

@@ -1,10 +1,19 @@
-<h1>Edit your Time Off</h1>
+<div class="breadcrumb">
+<div id="form-heading">
+	<h3>Edit your Time Off</h3><%= image_tag 'divider.png' %>
+</div>
 
-<%= form_for(:task, :url => { :action => :update }, :html => {:method => :put}) do |f| %>
+<%= form_for(:time_off, :url => {:action => :update}, :html => {:method => :put}) do |f| %>
 
+<table class="table table-condensed">
 <%= render :partial => "form", :locals => { :f => f } %>
 
-<% end %>
+ <tr>
+    <td class="pull-right"><%= f.submit 'Re Submit' %></td>
 
-<%= link_to 'Show', user_time_off_path(@user, @time_off) %> |
-<%= link_to 'Back', user_time_offs_path %>
+	<td><%= link_to 'Show', user_time_off_path(@user, @time_off), :class => 'btn btn-mini btn-info' %> |
+		<%= link_to 'Back', user_time_offs_path, :class => 'btn btn-mini' %>
+	</td>
+</tr>
+</table>
+<% end %>

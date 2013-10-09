@@ -1,35 +1,8 @@
-<table class="table table-striped table-condensed table-hover">
-  <thead>
-    <tr>
-      <th><h3>TimeOff Details :</h3><th>
-    </tr>
-  </thead>
 
-  <tbody>
-      <tr>
-        <td>Leave Type :</td>
-        <td><%= @time_off.leave_type %></td>
-      </tr>
-      </tr>
-        <td>Date :</td>
-        <td><%= @time_off.date %></td>
-      </tr>
-      <tr>
-        <td>Number Of Hours:</td>
-        <td><%= @time_off.number_of_hours %></td>
-      </tr>
-        <td>From :</td>
-        <td><%= @time_off.from %></td>
-      </tr>
-      </tr>
-        <td>To :</td>
-        <td><%= @time_off.to %></td>
-      </tr>
-      <tr>
-        <td>Reason :</td>
-        <td><%= @time_off.reason %></td>
-      </tr>
-  </tbody>
+<table class="table table-striped table-condensed table-hover">
+
+<%= render :partial => "show" %>
+
 </table>
 
 <center>

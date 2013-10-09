@@ -1,69 +1,66 @@
-<!--
+  <!--
    <ul class="pager">
      <li class="previous"><a href="#">Previous</a></li>
      <li class="next"><a href="#">Next</a></li>
    </ul><h3>Project Details:</h3> -->
 
 
-<div class = "breadcrumb">
-<table class="table table-striped table-condensed table-hover">
-  <thead>
-    <tr>
-      <th><h3>Project Details</h3></th>
-    </tr>
-  </thead>
-
-  <tbody>
-      <tr>
-        <td>Project Name:</td>
-        <td><%= @project.project_name %></td>
-      </tr>
-      <tr>
-        <td>Project Discription:</td>
-        <td><%= @project.project_discription %></td>
-      </tr>
-      <tr>
-        <td>Project Status:</td>
-        <td><span class="label label-success"><%= @project.project_status %></td></span>
-      </tr>
-      <tr>
-        <td>Project Client:</td>
-        <td><%= @project.client %></td>
-      </tr>
-      <tr>
-        <td>Client Details:</td>
-        <td><%= @project.client_details %></td>
-      </tr>
-      <tr>
-        <td>Project Starting Date:</td>
-        <td><%= @project.start_date %></td>
-      </tr>
-      <tr>
-        <td>Project End Date:</td>
-        <td><%= @project.end_date %></td>
-      </tr>
-  </tbody>
-</table>
-
-
-<% users = User.users_by_project(@project) %>
+   <div class = "breadcrumb">
+    <table class="table table-striped table-condensed table-hover">
+      <div id="form-heading"><h3>Project Details</h3>
+        <%= image_tag 'divider.png' %>
+      </div>
+      <tbody>
+        <tr>
+          <td>Project Name:</td>
+          <td><%= @project.project_name %></td>
+        </tr>
+        <tr>
+          <td>Project Discription:</td>
+          <td><%= @project.project_discription %></td>
+        </tr>
+        <tr>
+          <td>Project Status:</td>
+          <% if @project.project_status == "Active" %>
+          <td><span class="badge badge-success"><%= @project.project_status %></span></td>
+          <% else %>
+          <td><span class="badge badge-warning"><%= @project.project_status %></span></td>
+          <% end %>
+        </tr>
+        <tr>
+          <td>Client:</td>
+          <td><%= @project.client %></td>
+        </tr>
+        <tr>
+          <td>Client Details:</td>
+          <td><%= @project.client_details %></td>
+        </tr>
+        <tr>
+          <td>Starting Date:</td>
+          <td><%= @project.start_date %></td>
+        </tr>
+        <tr>
+          <td>End Date:</td>
+          <td><%= @project.end_date %></td>
+        </tr>
+      </tbody>
+    </table>
 
 
-<table class="table table-striped table-condensed table-hover">
-  <thead>
-    <tr>
-      <th><h3>Users Under This Project</h3><th>
-    </tr>
-  </thead>
+    <% users = User.users_by_project(@project) %>
 
-  <tbody>
-      <% users.each do |user| %>
-      <tr>
-        <td><%= user.first_name %></td>
-        <td><%= user.role %></td>
-        <td><%= user.email %></td>
-      </tr>
-      <% end %>
-  </tbody>
-</table>
+<div id="form-heading">
+  <h3>Users Under This Project</h3><%= image_tag "divider.png" %>
 </div>
+    <table class="table table-striped table-condensed table-hover">
+        <tbody>
+          <% users.each do |user| %>
+          <tr>
+            <td><%= user.first_name %></td>
+            <td><%= user.role %></td>
+            <td><%= user.email %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>

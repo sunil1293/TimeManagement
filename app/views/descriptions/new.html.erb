@@ -1,22 +1,21 @@
+<div class="breadcrumb">
 
-<table class = "breadcrumb table table-condensed">
+<div id = "form-heading"><h3 >Daily Status Report</h3>
+	<%= image_tag "divider.png" %>
+</div>
 
-<th><h3>Daily Status Report</h3><hr></th>
+ <%= form_for(:description, :url => { :action => :create }, :html => {:method => :post}) do |f| %>
 
-<%= form_for(:description, :url => { :action => :create }, :html => {:method => :post}) do |f| %>
-  
-  <%= render :partial => "form", :locals => { :f => f } %>
+ <table class = "table table-condensed">
+ 	<%= render :partial => "form", :locals => { :f => f } %>
 
-  <div class="field">
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-  </div>
-  
-  <tr><div class="actions">
-    <td></td>
-    <td><%= f.submit %></td>
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+  	  
+  <tr>
+    <td class="pull-right"><%= f.submit %></td>
     <td><%= link_to 'Back', user_descriptions_path, :class => "btn btn-mini" %></td>
-  </div></tr>
+  </tr>
+ </table>
 <% end %>
 
 
-</table>

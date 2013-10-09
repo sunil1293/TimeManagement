@@ -1,13 +1,18 @@
-<h1>Editing task</h1>
+<div class="breadcrumb">
+<div id="form-heading">
+  <h3>Editing task</h3><%= image_tag "divider.png" %>
+</div>
 
 <%= form_for(:task, :url => { :action => :update }, :html => {:method => :put}) do |f| %>
-
+<table class="table table-condensed">
 <%= render :partial => "form", :locals => { :f => f } %>
 
-<div class="actions">
-  <%= f.submit %>
-</div>
+<tr>
+  <td class="pull-right"><%= f.submit %></td>
+</tr>
 <% end %>
-
+<tr class="pull-right"><td>
 <%= link_to 'Show', user_task_url(@user, @task), :class => 'btn btn-mini btn-info' %> |
-<%= link_to 'Back', user_tasks_url, :class => 'btn btn-mini' %>
+<%= link_to 'Back', user_tasks_url, :class => 'btn btn-mini' %></td></tr>
+</table>
+</div>

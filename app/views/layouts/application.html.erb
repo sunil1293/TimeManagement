@@ -32,7 +32,7 @@
 
       <!-- For all other devices -->
       <!-- Size should be 32 x 32 pixels -->
-      <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+      <%= favicon_link_tag 'book-icon.png' %>
 
       <%= javascript_include_tag "jquery-1.10.2.js", "application.js", "http://code.jquery.com/ui/1.10.3/jquery-ui.js" %>
       
@@ -41,124 +41,114 @@
 
     </head>
     <% if !user_signed_in? %>
-    <body style = "background-color: black; padding-bottom: 80%">
+    <body class = "black-background">
       <% else %>
       <body>
         <% end %>
 
         <div class="navbar" id="navbar">
-          <div class="header_right">
+          <div class="header-right">
             <a href="#" >
              <%= image_tag("timesheet2.png")%>
            </a>
            <% if user_signed_in? %>
            <ul class="nav ace-nav pull-right">
 
-            <li class="dropdown" data-toggle = "tooltip" title = "Tasks Notifications">
+            <% ending_tasks = Task.tasks_ends_in_this_week(current_user) %>
+
+            <% if current_user.role == 'Admin' %>
+            <% projects = Project.all.where( :end_date => Date.today..Date.today + 7 )%>
+            <% else %>
+            <% projects = Project.projects_ends_in_this_week(current_user) %>
+            <% end -%>
+            <li class="dropdown" data-toggle = "tooltip" title = "Notifications">
               <a id="first-purple" class="dropdown-toggle" href="#" data-toggle="dropdown">
-
-                <% ending_tasks = Task.tasks_ends_in_this_week(current_user) %>
-
-                <% projects = Project.projects_ends_in_this_week(current_user) %>
-
-
                 <i class="icon-bell-alt"></i>
                 <span class="badge badge-important"><%= (ending_tasks.count)+(projects.count) %></span>
               </a>
-              <ul style="padding-left: 10px" id="dropdown-menu" class="dropdown-menu">
-                <p>Task Notifications :</p>
-                <li class="divider"></li>
-                <% if ending_tasks.count == 0 %>
-                <p>No Task notifications.</p>
-                <% else %>
+              <ul id="dropdown-menu" class="dropdown-menu">
+                <% if ending_tasks.count + projects.count == 0 %>
+                <center><li>No Notifications.</li></center>
+                <% end %>
                 <% ending_tasks.each do |task| %>
-                <span><li><%= link_to(task.task, user_task_path(current_user, task)) %>
-                  <%= task.expected_end_date %></li></span>
-                  <% end %>
-                  <% end %>
-
-                  <li class="divider"></li>
-                  <p>Project Notifications :</p>
-                  <li class="divider"></li>
-                  <% if projects.count == 0 %>
-                  <p>No Project notifications.</p>
-                  <% else %>
-                  <% projects.each do |project| %>
-                  <span id="hide-overflow"><li><%= link_to(project.project_name, project_path(project)) %>
-                    <%= project.end_date %></li></span>
-                    <% end %>
-                    <% end %>
-                  </ul>
-                </li>
-
-                <li class="dropdown" data-toggle = "tooltip" title = "New Tasks for You">
-                  <a id="first-green" class="dropdown-toggle" href="#" data-toggle="dropdown">
-                    <% tasks = Task.tasks_for_current_user(current_user) %>
-                    <i class="icon-list-5"></i>
-                    <span class="badge badge-success"><%= tasks.count %></span>
-                  </a>
-                  <ul id="dropdown-menu" class="dropdown-menu">
-                    <% tasks.each do |task| %>
-                    <li id="hide-overflow"><%= link_to  task.task , user_task_path(current_user, task) %></li>
-                    <% end %>
-                    <li class="divider"></li>
-                    <li><%= link_to 'All Tasks', user_tasks_path(current_user) %></li>
-                  </ul>
-                </li>
-
-
-                <li class="dropdown-toggle" data-toggle="dropdown" style="backgroung-color: blue; cursor: pointer">
-                  <%= image_tag(current_user.profile_photo, :style =>"height: 40px; width: 42px;", :class => "img-circle")%>
-                  Welcome, <%= current_user.first_name %>  <i class="icon-angle-down"></i></li>
-                  <ul id="dropdown-menu" class="dropdown-menu">
-                    <li><%= link_to " Profile", '', :class => "icon-profile" %></li>
-                    <li><%= link_to " Settings", edit_user_path(current_user), :class => 'icon-cogs' %></li>
-                    <li class="divider"></li>
-                    <li>
-                      <%= link_to(' Logout', destroy_user_session_path, :method => :delete, :class => "icon-switch-3") %>
-                    </li>
-                  </ul>
-                  <li><a href=""></a></li>
-                </ul>
-                
-              </div>
-
-              <ul style="height: 28px;" class="breadcrumb">
+                <li><%= link_to(task.task, user_task_path(current_user, task)) %></li>
+                <% end %>
+                <% projects.each do |project| %>
+                <li><%= link_to(project.project_name, project_path(project)) %></li>
+                <% end %>
+                <li class = "divider"></li>
               </ul>
-              <% end %>
-            </div>
+            </li>
+            <li class="dropdown" data-toggle = "tooltip" title = "New Tasks for You">
+              <a id="first-green" class="dropdown-toggle" href="#" data-toggle="dropdown">
+                <% tasks = Task.tasks_for_current_user(current_user) %>
+                <i class="icon-list-5"></i>
+                <span class="badge badge-success"><%= tasks.count %></span>
+              </a>
+              <ul id="dropdown-menu" class="dropdown-menu">
+                <% if tasks.count == 0 %>
+                <b><center>No Tasks for you.</center></b>
+                <% else %>
+                <% tasks.each do |task| %>
+                <li id="hide-overflow"><%= link_to  task.task , user_task_path(current_user, task) %></li>
+                <% end %>
+                <% end %>
+                <li class="divider"></li>
+                <li><%= link_to 'Tasks', user_tasks_path(current_user) %></li>
+              </ul>
+            </li>
+
+
+            <li class="dropdown-toggle" data-toggle="dropdown" id ="profile-pic-background">
+              <%= image_tag(current_user.profile_photo, :id => "profile-photo", :class => "img-circle")%>
+              Welcome, <%= current_user.first_name %>  <i class="icon-angle-down"></i>
+            </li>
+            <ul id="dropdown-menu" class="dropdown-menu">
+              <li><%= link_to " Profile", '', :class => "icon-profile" %></li>
+              <li><%= link_to " Settings", edit_user_path(current_user), :class => 'icon-cogs' %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to(' Logout', destroy_user_session_path, :method => :delete, :class => "icon-switch-3") %>
+              </li>
+            </ul>
+            <li><a href=""></a></li>
+          </ul>
+
+        </div>
+
+        <ul style="height: 28px;" class="breadcrumb">
+        </ul>
+        <% end %>
+      </div>
 
 
 
-            <div style="margin-left: 0px; margin-top: -65px;" class="span3">
-              <div class="navbar">
-                <% if user_signed_in? %>
-                <a data-toggle="collapse" data-target="#slide">
-                  <div class="first_image"></div>
-                </a>
-                <script>
-                $( ".first_image" ).click(function() {
-                  $( this ).toggleClass( "second_image" );
-                });
-                </script>
+      <div style="margin-left: 0px; margin-top: -65px;" class="span3">
+        <div class="navbar">
+          <% if user_signed_in? %>
+          <a data-toggle="collapse" data-target="#slide">
+            <div class="first_image"></div>
+          </a>
 
-                <div id="slide" class="collapse in sidebar display">
-                  <div class="sidebar-shortcuts">
-                    <div class="sidebar-shortcuts-large">
-                      <a href = "/home/index"><button class="btn btn-small btn-success">
-                        <i class="icon-home"></i>
-                      </button></a>
-                      &ensp;<a href='/users/<%= current_user.id %>/descriptions/new'><button class="btn btn-small btn-info">
-                      <i class="icon-pencil"></i>
-                    </button></a>
-                    &ensp;<a href="/users"><button class="btn btn-small btn-warning">
+          <div id="slide" class="collapse in sidebar display">
+            <center>
+              <div class="sidebar-shortcuts">
+                <div class="sidebar-shortcuts-large">
+                  <a href = "/home/index"><button class="btn btn-small btn-success">
+                    <i class="icon-home"></i>
+                  </button></a>
+                  <a href='/users/<%= current_user.id %>/descriptions/new'><button class="btn btn-small btn-info">
+                    <i class="icon-pencil"></i>
+                  </button></a>
+                  <a href="/users"><button class="btn btn-small btn-warning">
                     <i class="icon-group"></i>
                   </button></a>
-                  &ensp;<a href='/users/<%= current_user.id %>/edit'><button class="btn btn-small btn-danger">
-                  <i class="icon-cogs"></i>
-                </button></a>
+                  <a href='/users/<%= current_user.id %>/edit'><button class="btn btn-small btn-danger">
+                    <i class="icon-cogs"></i>
+                  </button></a>
+                </div>
               </div>
-            </div>
+            </center>
 
             <ul class="nav nav-list">
 
@@ -172,7 +162,7 @@
              <li class="active">
                <a class="span3" data-toggle="collapse" data-target="#tasks">
                 <i class="icon-windows8"></i>
-                <span >Task Management</span>
+                <span id="hand">Task Management</span>
                 <b class="arrow icon-angle-down"></b>
               </a>
               <div id="tasks" class="collapse">
@@ -185,8 +175,14 @@
                   </li>
                   <li class="active">
                    <a href="/users/<%= current_user.id %>/tasks" class="span3">
-                     <i class="icon-picture"></i>
-                     <span class="menu-text">Tasks</span>
+                     <i class="icon-lines"></i>
+                     <span class="menu-text">Tasks Assaigned by Me</span>
+                   </a>
+                 </li>
+                 <li class="active">
+                   <a href="/users/<%= current_user.id %>/tasks/my_tasks" class="span3">
+                     <i class="icon-list-8"></i>
+                     <span class="menu-text">My Tasks</span>
                    </a>
                  </li>
                </ul>
@@ -196,7 +192,7 @@
            <li class="active">
              <a class="span3" data-toggle="collapse" data-target="#projects">
               <i class="icon-book"></i>
-              <span >Project Management</span>
+              <span id="hand">Project Management</span>
               <b class="arrow icon-angle-down"></b>
             </a>
             <div id="projects" class="collapse">
@@ -220,7 +216,7 @@
          <li class="active">
            <a class="span3" data-toggle="collapse" data-target="#usermanage">
             <i class="icon-user"></i>
-            <span >User Management</span>
+            <span id="hand">User Management</span>
             <b class="arrow icon-angle-down"></b>
           </a>
           <div id="usermanage" class="collapse">
@@ -245,7 +241,7 @@
        <li class="active">
          <a class="span3" data-toggle="collapse" data-target="#times">
           <i class="icon-time"></i>
-          <span>TimeSheet</span>
+          <span id="hand">TimeSheet</span>
           <b class="arrow icon-angle-down"></b>
         </a>
         <div id="times" class="collapse">
@@ -291,7 +287,7 @@
 <li class="active">
  <a class="span3" data-toggle="collapse" data-target="#feedbacks">
   <i class="icon-book"></i>
-  <span >Feedback</span>
+  <span id="hand">Feedback</span>
   <b class="arrow icon-angle-down"></b>
 </a>
 <div id="feedbacks" class="collapse">
@@ -320,7 +316,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="span9">
+    <div style="margin-top: -15px;" class="span9">
       <% if user_signed_in? %>
       <%= bootstrap_flash %>
       <% end %>
@@ -329,14 +325,13 @@
   </div><!--/row-->
   <a id="feedback" href="/feedbacks/new"></a>
 
-  <footer>
-    <% if user_signed_in? %>
-    <br/><br/>
-    <center><p>Time Sheet Application. &copy; Company 2013</p></center>
-    <% end %>    
-  </footer>
-
 </div> <!-- /container -->
+<footer>
+  <% if user_signed_in? %>
+  <center><p>Time Sheet Application. &copy; Company 2013</p></center>
+  <% end %>    
+</footer>
+
 
     <!-- Javascripts
       <script type="text/javascript">(function(){var ticker=document.createElement('script');ticker.type='text/javascript';ticker.async=true;ticker.src='//twitcker.com/ticker/sunnysunilkumar.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(ticker);})();
@@ -344,7 +339,11 @@
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->
 
-
+      <script>
+        $( ".first_image" ).click(function() {
+          $( this ).toggleClass( "second_image" );
+        });
+      </script>
 
 
     </body>

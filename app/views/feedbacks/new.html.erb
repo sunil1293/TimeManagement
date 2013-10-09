@@ -1,8 +1,11 @@
-<table class = "breadcrumb table table-condensed">
-	<th><h3>New feedback</h3><hr></th>
+<div class="breadcrumb">
+	<div id="form-heading">
+		<h3>New feedback</h3><%= image_tag "divider.png" %>
+	</div>
+	<table class="table table-condensed">
+		<%= render 'form' %>
 
-<%= render 'form' %>
-
-<td><%= link_to 'Back', feedbacks_path, :class => 'btn btn-info' %></td></tr>
-
-</table>
+		<td><%= link_to 'Back', feedbacks_path, :class => 'btn btn-info' %></td>
+		</tr>
+	</table>
+</div>

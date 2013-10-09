@@ -12,26 +12,26 @@
     </div>
   <% end %>
   
-  <tr><div>
+  <tr>
       <td><%= f.label :select_project %></td>
       <td><%= f.select :select_project, Project.user_project(current_user).map {|p| [p.project_name, p.id]}, :autofocus => true %></td>
-  </div></tr>
+  </tr>
 
-  <tr><div>
+  <tr>
       <td><%= f.label :select_task %></td>
-      <td><%= f.select :select_task, Task.find(:all, :conditions => { :assigned_to => current_user.id, :under_project => current_user.under_project }).map {|p| [p.task, p.id]} %></td>
-  </div></tr>
-  <tr><div>
+      <td><%= f.select :select_task, Task.find(:all, :conditions => { :assigned_to => current_user.id, :select_project => current_user.under_project }).map {|p| [p.task, p.id]} %></td>
+  </tr>
+  <tr>
     <td><%= f.label :status_on %></td>
     <td><%= f.date_field :status_on %></td>
-  </div></tr>
-  <tr><div>
+  </tr>
+  <tr>
     <td><%= f.label :number_of_hours %></td>
     <td><%= f.text_field :number_of_hours %></td>
-  </div></tr>
-  <tr><div>
+  </tr>
+  <tr>
     <td><%= f.label :today_status %></td>
     <td><%= f.text_area :today_status %></td>
-  </div><tr>
+  <tr>
 
 

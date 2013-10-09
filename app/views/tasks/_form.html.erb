@@ -1,8 +1,3 @@
-<script type="text/javascript">
-  $(function() {
-    $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
-  });
-</script>
 
 <% if @task.errors.any? %>
 <div id="error_explanation">
@@ -16,34 +11,59 @@
 </div>
 <% end %>
 
-<div class="field">
-  <%= f.label :task %><br>
-  <%= f.text_field :task %>
-</div>
-<div class="field">
-   <%= f.label :description %><br>
-   <%= f.text_area :description %>
-</div>
-<div>
-  <%= f.label :status %> <br/>
-  <%= f.select :status, Task::STATUS %>
-</div>
-<div>
-  <%= f.label :under_project %> <br/>
-  <%= f.select :under_project, Project.all.map {|p| [p.project_name, p.id]} %>
-</div>
-<div>
-  <%= f.label :assigned_to %><br/>
-  <%= f.select :assigned_to, User.all.map {|u| [u.email, u.id]}, :include_blank => 'Please Select' %>
-</div>
+<tr>
+  <td><%= f.label :task %></td>
+  <td><%= f.text_field :task %></td>
+</tr>
+<tr>
+   <td><%= f.label :description %></td>
+   <td><%= f.text_area :description %></td>
+</tr>
+<tr>
+  <td><%= f.label :status %> </td>
+  <td><%= f.select :status, Task::STATUS %></td>
+</tr>
+<tr>
+  <td><%= f.label :select_project %> </td>
+  <td><%= f.select :select_project, Project.all.map {|p| [p.project_name, p.id]}, :include_blank => 'Please Select' %>
+  </td>
+</tr>
+<tr>
+  <td><%= f.label :assigned_to %></td>
+  <td><%= f.select :assigned_to, '', :include_blank => 'Please Select' %></td>
+</tr>
 
-<div>
-  <%= f.label :start_date %><br>
-  <%= f.text_field :start_date, :class => 'datepicker', :readonly => true %>
-</div>
+<tr>
+  <td><%= f.label :start_date %></td>
+  <td><%= f.text_field :start_date, :class => 'datepicker', :readonly => true %></td>
+</tr>
 
-<div>
-  <%= f.label :expected_end_date %><br>
-  <%= f.text_field :expected_end_date, :class => 'datepicker', :readonly => true %>
-</div>
+<tr>
+  <td><%= f.label :expected_end_date %></td>
+  <td><%= f.text_field :expected_end_date, :class => 'datepicker', :readonly => true %></td>
+</tr>
 
+
+
+<script type="text/javascript">
+  $(function() {
+    $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+  });
+
+  $(function($) {
+  $("#task_select_project").change(function() {
+    $.ajax({
+      url: '<%= users_by_project_user_tasks_path %>' + '?under_project=' + this.value ,
+      type: 'GET',
+      success: function(data){
+        $('#task_assigned_to').html('');
+        var options = $('#task_assigned_to').append('<option value="">Please Select</option>')
+        $.each( data, function( key, value ) {
+          options.append("<option value="+value[0]+">"+value[1]+"</option>")
+         });
+      }
+    })
+
+  });
+})
+</script>

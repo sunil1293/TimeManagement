@@ -1,8 +1,6 @@
 TimeSheet::Application.routes.draw do
 
 
-
-
   get "about_us/index"
   resources :feedbacks
 
@@ -17,13 +15,19 @@ TimeSheet::Application.routes.draw do
   get 'users/update_projects/:id', :controller=>'users', :action => 'update_projects'
 
   resources :users do
+    get 'profile_info'
     resources :tasks do
       collection do 
          get 'users_by_project'
+         get 'my_tasks'
       end
     end
     resources :descriptions
-    resources :time_offs
+    resources :time_offs do
+      member do
+        get 'approve_leave'
+      end
+    end
     collection do 
       get 'users_by_role'
     end

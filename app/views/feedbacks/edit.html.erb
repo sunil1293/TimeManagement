@@ -1,6 +1,14 @@
-<h1>Editing feedback</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @feedback %> |
-<%= link_to 'Back', feedbacks_path %>
+<div class="breadcrumb">
+	<div id="form-heading">
+		<h3>Edit feedback</h3><%= image_tag "divider.png" %>
+	</div>
+	<table class="table table-condensed">
+		<%= render 'form' %>
+		<tr><td></td>
+			<td>
+				<%= link_to 'Show', @feedback, :class => 'btn btn-mini btn-info' %> |
+				<%= link_to 'Back', feedbacks_path, :class => 'btn btn-mini' %>
+			</td>
+		</tr>
+	</table>
+</div>

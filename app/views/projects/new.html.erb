@@ -1,22 +1,23 @@
+<div class="breadcrumb">
 
-<table class = "breadcrumb table">
+<div id="form-heading"><h3>New Project</h3>
+<%= image_tag "divider.png" %></div>
+		<a href="<%= projects_path %>" class="win-command pull-right">
+			<span class="win-commandicon win-commandring icon-back"></span>
+			<span class="win-label">All Projects</span>
+		</a>
 
-	<tr><th><h3>NEW PROJECT</h3><hr>
-		<td><a href="<%= projects_path %>" class="win-command pull-right">
-				<span class="win-commandicon win-commandring icon-back"></span>
-				<span class="win-label">All Projects</span>
-			</a>
-		</td>
-	</tr>
 
 <%= form_for(:project, :url => { :action => :create }, :html => {:method => :post}) do |f| %>
-
+<table class="table table-condensed">
+	
 <%= render :partial => "form", :locals => { :f => f } %>
 
-<tr><td></td>
-	<td><div class="actions"><%= f.submit %></div></td>
+<tr>
+	<td><div class="pull-right"><%= f.submit %></div></td>
 </tr>
+</table>
 
 <% end %>
 
-</table>
+</div>

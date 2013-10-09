@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        UserMailer.registration_confirmation(@user).deliver
+        #UserMailer.registration_confirmation(@user).deliver
         format.html { redirect_to users_url, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -76,10 +76,14 @@ class UsersController < ApplicationController
 
   def users_by_role
     users = User.users_by_role(params[:role])
-     respond_to do |format|
-        format.json { render json: users.pluck(:id,:first_name) }
-     end
-  end    
+    respond_to do |format|
+      format.json { render json: users.pluck(:id,:first_name) }
+    end
+  end
+
+  def profile_info
+    set_user
+  end
   
   
   private
@@ -97,6 +101,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :role, :reported_to, :under_project, :profile_photo)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :role, :reported_to, :status, :under_project, :profile_photo)
     end
   end

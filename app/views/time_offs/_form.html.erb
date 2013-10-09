@@ -1,6 +1,4 @@
 
-<div class = "well">
-  <table class = "table">
   <% if @time_off.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@time_off.errors.count, "error") %> prohibited this time_off from being saved:</h2>
@@ -13,33 +11,80 @@
     </div>
   <% end %>
 
-  <tr><div class="field">
+
+  <tr>
     <td><%= f.label :leave_type %></td>
     <td><%= f.select :leave_type, TimeOff::LEAVE_TYPES, :autofocus => true %></td>
-  </div></tr>
+  </tr>
 
-  <tr><div class="field">
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  
+  <tr>
+    <td><%= f.label :type %></td>
+    <td><%= f.select :type, TimeOff::TYPES %></td>
+  </tr>
+
+  <tr id="date">
     <td><%= f.label :date %></td>
     <td><%= f.date_field :date %></td>
-  </div></tr>
-  <tr><div class="field">
+  </tr>
+
+  <tr id="hours">
     <td><%= f.label :number_of_hours %></td>
     <td><%= f.text_field :number_of_hours %></td>
-  </div></tr>
-  <tr><div class="field">
+  </tr>
+
+  <tr id='days'>
     <td><%= f.label :from %></td>
     <td><%= f.date_field :from %></td>
-  </div></tr>
-  <tr><div class="field">
+
     <td><%= f.label :to %></td>
     <td><%= f.date_field :to %></td>
-  </div></tr>
-  <tr><div class="field">
+  </tr>
+
+  <tr>
     <td><%= f.label :reason %></td>
     <td><%= f.text_area :reason %></td>
-  </div></tr>
-  <tr><td></td><td><div class="actions">
-    <%= f.submit %></td>
-  </div></tr>
-</table>
-</div>
+  </tr>
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    
+    var selected_first = $("#time_off_type option:selected");        
+    if(selected_first.val() == "Hours"){
+        $("#hours").show();
+        $("#date").show();
+        $("#days").hide();
+    }
+    else if (selected_first.val() == 'Day')
+    {   $("#date").show();
+        $("#hours").hide();
+        $("#days").hide();    }
+    else 
+    {   $("#days").show();
+        $("#date").hide();
+        $("#hours").hide();    }
+    $("#time_off_type").change(onSelectChange);
+    
+});
+function onSelectChange(){
+    var selected = $("#time_off_type option:selected");        
+    if(selected.val() == "Hours"){
+        $("#hours").show();
+        $("#date").show();
+        $("#days").hide();
+    }
+    else if (selected.val() == 'Day')
+    {   $("#date").show();
+        $("#hours").hide();
+        $("#days").hide();    }
+    else 
+    {   $("#days").show();
+        $("#date").hide();
+        $("#hours").hide();    }
+}
+</script>

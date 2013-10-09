@@ -1,55 +1,77 @@
 
-<div class = "span8 breadcrumb">
-<div class = "span9">
-<table class = "table table-condensed">
 
-    <th><h3>User Profile Information</h3><hr></th>
+<div class="breadcrumb">
 
-    <%= form_for(@user, :html => { :method => :put }) do |f| %>
+  <%= form_for(@user) do |f| %>
 
-      <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being updated:</h3>
-
-          <ul>
-            <% @user.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
+  <% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being updated:</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
       <% end %>
-
-      <tr><td><%= f.label :first_name %></td>
-      <td><%= f.text_field :first_name, :autofocus => true %></td></tr>
-
-      <tr><td><%= f.label :last_name %></td>
-      <td><%= f.text_field :last_name %></td></tr>
-
-      <tr><td><%= f.label :email %></td>
-      <td><%= f.email_field :email %></td></tr>
-
-      <tr><td><%= f.label :profile_photo%></td>
-      <td><%= f.file_field :profile_photo %></td></tr>
-
-      <tr><td><%= f.label :role %></td>
-      <td><%= f.select :role, User::ROLES %></td></tr>
-
-      <tr><td><%= f.label :reported_to %></td>
-      <td><%= f.select :reported_to, User.all.map {|p| [p.email, p.id]} %></td></tr>
-
-      <tr><td><%= f.label :under_project %></td>
-      <td><%= f.select :under_project, Project.all.map {|p| [p.project_name, p.id]} %></td></tr>
-
-      <tr><td><%= f.label :password %>
-      <i>(If you want to change password enter new password else enter old password)</i><br/></td>
-      <td><%= f.password_field :password %></td></tr>
-
-      <tr><td><center><div class="actions"><%= f.submit %></div></center></td>
-
+    </ul>
+  </div>
   <% end %>
 
-  <td><%= link_to 'Back', users_path, :class => 'btn btn-mini' %></td></tr>
+  <%= render :partial => "users/profile_info" %><br/>
 
-</table>
-</div>
+  <table class = "table table-condensed">
+
+    <tr>
+      <td><%= f.label :first_name %></td>
+      <td><%= f.text_field :first_name, :autofocus => true %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :last_name %></td>
+      <td><%= f.text_field :last_name %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :email %></td>
+      <td><%= f.email_field :email %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :status %></td>
+      <td><%= f.select :status, User::STATES %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :profile_photo%></td>
+      <td><%= f.file_field :profile_photo %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :role %></td>
+      <td><%= f.select :role, User::ROLES %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :reported_to %></td>
+      <td><%= f.select :reported_to, User.all.map {|p| [p.email, p.id]} %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :under_project %></td>
+      <td><%= f.select :under_project, Project.all.map {|p| [p.project_name, p.id]} %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :password %>
+        <i>(If you want to change password enter new password else enter old password)</i><br/></td>
+      <td><%= f.password_field :password %></td>
+    </tr>
+
+    <tr>
+      <td><center><div><%= f.submit %></div></center></td>
+
+      <% end %>
+
+      <td><%= link_to 'Back', users_path, :class => 'btn btn-mini' %></td>
+    </tr>
+  </table>
+
 </div>

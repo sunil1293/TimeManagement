@@ -1,5 +1,7 @@
-<h3>All Tasks Assigned by Me</h3>
 
+<div id="form-heading">
+<h3>Tasks Assigned by Me</h3><%= image_tag 'divider.png' %>
+</div>
 <table class="table table-striped table-condensed table-hover">
   <thead>
     <tr>
@@ -16,7 +18,7 @@
     <% @tasks.each do |task| %>
     <% if task.user_id == current_user.id %>
       <tr>
-        <td><%= Project.find(task.under_project).project_name%></td>
+        <td><%= Project.find(task.select_project).project_name%></td>
         <td><%= User.find(task.assigned_to).first_name%></td>
         <td style = "-ms-text-overflow: ellipsis; width: 200px; overflow: hidden;"><%= task.task %></td>
         <td><%= link_to 'Show', user_task_path(@user, task),:class => 'btn btn-mini btn-info' %></td>
@@ -28,31 +30,5 @@
   </tbody>
 </table>
 
-<h3>Tasks Assigned To Me</h3>
-
-<table class = 'table table-striped table-condensed table-hover'>
-  <thead>
-    <tr>
-      <th>Project</th>
-      <th>Task Assigned By</th>
-      <th>Task</th>
-      <th>Expected end date</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
-    <% if task.assigned_to == current_user.id %>
-      <tr>
-        <td><%= Project.find(task.under_project).project_name %></td>
-        <td><%= User.find(task.user_id).first_name %></td>
-        <td style = "text-overflow: ellipsis; width: 200px; overflow: hidden;"><%= task.task %></td>
-        <td><%= task.expected_end_date %></td>
-      </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
-<br>
-
-<%= link_to 'New Task', new_user_task_path, :class => 'btn btn-primary' %>
+<center><%= link_to 'New Task', new_user_task_path, :class =>'btn btn-primary'%></center>
+</div>
